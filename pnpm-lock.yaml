@@ -29,6 +29,9 @@ dependencies:
   next-mdx-remote:
     specifier: ^5.0.0
     version: 5.0.0(@types/react@19.0.2)(acorn@8.14.0)(react@19.0.0)
+  prisma:
+    specifier: ^6.1.0
+    version: 6.1.0
   react:
     specifier: ^19.0.0
     version: 19.0.0
@@ -49,9 +52,6 @@ devDependencies:
   postcss:
     specifier: ^8
     version: 8.4.49
-  prisma:
-    specifier: ^6.1.0
-    version: 6.1.0
   tailwindcss:
     specifier: ^3.4.1
     version: 3.4.17
@@ -503,9 +503,11 @@ packages:
 
   /@prisma/debug@6.1.0:
     resolution: {integrity: sha512-0himsvcM4DGBTtvXkd2Tggv6sl2JyUYLzEGXXleFY+7Kp6rZeSS3hiTW9mwtUlXrwYbJP6pwlVNB7jYElrjWUg==}
+    dev: false
 
   /@prisma/engines-version@6.1.0-21.11f085a2012c0f4778414c8db2651556ee0ef959:
     resolution: {integrity: sha512-PdJqmYM2Fd8K0weOOtQThWylwjsDlTig+8Pcg47/jszMuLL9iLIaygC3cjWJLda69siRW4STlCTMSgOjZzvKPQ==}
+    dev: false
 
   /@prisma/engines@6.1.0:
     resolution: {integrity: sha512-GnYJbCiep3Vyr1P/415ReYrgJUjP79fBNc1wCo7NP6Eia0CzL2Ot9vK7Infczv3oK7JLrCcawOSAxFxNFsAERQ==}
@@ -515,6 +517,7 @@ packages:
       '@prisma/engines-version': 6.1.0-21.11f085a2012c0f4778414c8db2651556ee0ef959
       '@prisma/fetch-engine': 6.1.0
       '@prisma/get-platform': 6.1.0
+    dev: false
 
   /@prisma/fetch-engine@6.1.0:
     resolution: {integrity: sha512-asdFi7TvPlEZ8CzSZ/+Du5wZ27q6OJbRSXh+S8ISZguu+S9KtS/gP7NeXceZyb1Jv1SM1S5YfiCv+STDsG6rrg==}
@@ -522,11 +525,13 @@ packages:
       '@prisma/debug': 6.1.0
       '@prisma/engines-version': 6.1.0-21.11f085a2012c0f4778414c8db2651556ee0ef959
       '@prisma/get-platform': 6.1.0
+    dev: false
 
   /@prisma/get-platform@6.1.0:
     resolution: {integrity: sha512-ia8bNjboBoHkmKGGaWtqtlgQOhCi7+f85aOkPJKgNwWvYrT6l78KgojLekE8zMhVk0R9lWcifV0Pf8l3/15V0Q==}
     dependencies:
       '@prisma/debug': 6.1.0
+    dev: false
 
   /@swc/counter@0.1.3:
     resolution: {integrity: sha512-e2BR4lsJkkRlKZ/qCHPw9ZaSxc0MVUd7gtbtaB7aMvHeJVYe8sOB8DBZkP2DtISHGSku9sCK6T6cnY0CtXrOCQ==}
@@ -1951,6 +1956,7 @@ packages:
       '@prisma/engines': 6.1.0
     optionalDependencies:
       fsevents: 2.3.3
+    dev: false
 
   /property-information@6.5.0:
     resolution: {integrity: sha512-PgTgs/BlvHxOu8QuEN7wi5A0OmXaBcHpmCSTehcs6Uuu9IkDIEo13Hy7n898RHfrQ49vKCoGeWZSaAK01nwVig==}
