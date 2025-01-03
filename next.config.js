@@ -1,4 +1,4 @@
-import type { NextConfig } from "next";
+
 import withMDX from '@next/mdx';
 
 const mdxConfig = withMDX({
@@ -8,8 +8,8 @@ const mdxConfig = withMDX({
   },
 });
 
-const nextConfig: NextConfig = {
-  pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
+const nextConfig = {
+  pageExtensions: ['js', 'jsx', 'md', 'mdx'],
   /* other config options here */
 };
 
