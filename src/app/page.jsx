@@ -1,4 +1,3 @@
-'use client';
 import Skillset from "@/components/Skillset";
 import Avatar from "@/components/Avatar";
 import GeometricLottie from "@/components/GeometricLottie";

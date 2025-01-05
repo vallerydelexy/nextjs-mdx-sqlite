@@ -4,10 +4,9 @@ import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
 
 export default function DraggableWhatsapp() {
-  if (typeof window === "undefined") return;
-  const todayDate = new Date();
   const [inputValue, setInputValue] = useState("");
   const [messages, setMessage] = useState([]);
+  const [currentDate, setCurrentDate] = useState(null);
   const inputEl = useRef(null);
   
   // Add state for position
@@ -15,24 +14,30 @@ export default function DraggableWhatsapp() {
   const [isDragging, setIsDragging] = useState(false);
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
 
+  // Initialize date on client side only
+  useEffect(() => {
+    setCurrentDate(new Date());
+  }, []);
+
   const openInNewTab = (url) => {
-    window.open(url, "_blank");
+    if (typeof window !== 'undefined') {
+      window.open(url, "_blank");
+    }
   };
 
   function addToInput() {
     if (inputValue) {
-      setMessage([...messages, inputValue]);
+      setMessage(prev => [...prev, inputValue]);
       const url = "https://api.whatsapp.com/send/?phone=6281276763536&text=";
       openInNewTab(url + inputValue);
+      setInputValue("");
     } else {
-      inputEl.current.reportValidity();
+      inputEl.current?.reportValidity();
     }
-    inputEl.current.value = "";
   }
 
   const handleDrag = (e) => {
     setIsDragging(true);
-    // Handle both mouse and touch events
     const clientX = e.touches ? e.touches[0].clientX : e.clientX;
     const clientY = e.touches ? e.touches[0].clientY : e.clientY;
     
@@ -47,8 +52,6 @@ export default function DraggableWhatsapp() {
       if (e.cancelable) {
         e.preventDefault();
       }
-  
-      // Handle both mouse and touch events
       const clientX = e.touches ? e.touches[0].clientX : e.clientX;
       const clientY = e.touches ? e.touches[0].clientY : e.clientY;
   
@@ -64,20 +67,13 @@ export default function DraggableWhatsapp() {
   };
   
   useEffect(() => {
-    const options = { passive: false }; // Allow preventDefault to be called
+    const options = { passive: false };
   
     if (isDragging) {
-      // Add both mouse and touch event listeners
       window.addEventListener('mousemove', handleMove);
       window.addEventListener('mouseup', handleEnd);
       window.addEventListener('touchmove', handleMove, options);
       window.addEventListener('touchend', handleEnd);
-    } else {
-      // Remove both mouse and touch event listeners
-      window.removeEventListener('mousemove', handleMove);
-      window.removeEventListener('mouseup', handleEnd);
-      window.removeEventListener('touchmove', handleMove);
-      window.removeEventListener('touchend', handleEnd);
     }
   
     return () => {
@@ -88,6 +84,11 @@ export default function DraggableWhatsapp() {
     };
   }, [isDragging]);
 
+  // Don't render until date is available on client
+  if (!currentDate) {
+    return null;
+  }
+
   return (
     <div 
       className="rounded-lg overflow-clip shadow-lg max-w-screen-md mx-auto"
@@ -97,7 +98,6 @@ export default function DraggableWhatsapp() {
       }}
     >
       <div className="flex flex-col">
-        {/* Header - Add mousedown handler here */}
         <div 
           className="bg-whatsapp-darkGreen flex flex-row items-center justify-between px-3 py-2 cursor-grab"
           onMouseDown={handleDrag}
@@ -108,6 +108,7 @@ export default function DraggableWhatsapp() {
               <img
                 className="h-10 w-10 rounded-full"
                 src="/images/rizki-aprita-bw.jpg"
+                alt="Profile"
               />
             </div>
             <div className="ml-4">
@@ -123,7 +124,6 @@ export default function DraggableWhatsapp() {
           </div>
         </div>
 
-        {/* Messages */}
         <div
           className="flex-1 overflow-auto max-h-[20em] bg-whatsapp-brown"
           style={{
@@ -134,7 +134,7 @@ export default function DraggableWhatsapp() {
             <div className="mb-2 flex justify-center">
               <div className="rounded px-4 py-2 bg-whatsapp-lightBlue dark:bg-whatsapp-darkBlue">
                 <p className="text-xs">
-                  {todayDate.toLocaleDateString("id", {
+                  {currentDate.toLocaleDateString("id", {
                     year: "numeric",
                     month: "long",
                     day: "numeric",
@@ -158,11 +158,11 @@ export default function DraggableWhatsapp() {
                   Rizki Aprita
                 </p>
                 <p className="mt-1 text-sm">
-                  Hai saya Rizki, <br></br> Saya membuat website dan apilkasi
-                  yang mudah dipahami dan digunakan
+                  Hai saya Rizki, <br />
+                  Saya membuat website dan apilkasi yang mudah dipahami dan digunakan
                 </p>
                 <p className="text-gray-500 mt-1 text-right text-xs">
-                  {todayDate.toLocaleTimeString([], {
+                  {currentDate.toLocaleTimeString([], {
                     hour: "2-digit",
                     minute: "2-digit",
                     hourCycle: "h23",
@@ -176,7 +176,7 @@ export default function DraggableWhatsapp() {
                 <div className="rounded px-3 py-2 bg-gray-100 dark:bg-slate-800">
                   <p className="mt-1 text-sm">{msg}</p>
                   <p className="text-gray-500 mt-1 text-right text-xs">
-                    {todayDate.toLocaleTimeString([], {
+                    {currentDate.toLocaleTimeString([], {
                       hour: "2-digit",
                       minute: "2-digit",
                       hourCycle: "h23",
@@ -188,12 +188,12 @@ export default function DraggableWhatsapp() {
           </div>
         </div>
 
-        {/* Input */}
         <div className="bg-gray-50 dark:bg-gray-800 flex items-center pr-4 py-4">
           <div className="mx-4 flex-1">
             <input
               className="w-full rounded-lg border px-2 py-2 focus:outline-0 dark:text-gray-50 text-gray-950 dark:bg-gray-900 bg-gray-50"
               type="text"
+              value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               required
               ref={inputEl}
@@ -205,7 +205,7 @@ export default function DraggableWhatsapp() {
                 ? "dark:bg-whatsapp-brightGreen bg-whatsapp-darkGreen text-white p-2 rounded"
                 : "p-2"
             }
-            onClick={() => addToInput()}
+            onClick={addToInput}
           >
             <SendHorizonalIcon
               className={inputValue ? "h-5 w-5" : "h-5 w-5 text-gray-400"}

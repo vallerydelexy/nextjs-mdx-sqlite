@@ -5,11 +5,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <title>My App</title>
-        <meta name="description" content="My app description" />
+        <title>Rizki Aprita</title>
+        <meta name="description" content="Portfolio Rizki Aprita" />
         <link rel="icon" href="/favicon.ico" />
       </head>
-      <body className="">
+      <body>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
