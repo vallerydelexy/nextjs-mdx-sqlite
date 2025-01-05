@@ -3,11 +3,13 @@ import Link from "next/link";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { getAllPosts, getPost } from "@/lib/utils";
 import Grain from "@/components/Grain";
+import { mdxOptions } from "@/config/mdxOptions";
 
 export default async function Blog({ params }) {
   const slug = (await params).slug;
   const post = await getPost(slug);
-  const date = post.createdAt === post.createdAt ? new Date(post.createdAt).toDateString() : `updated ${new Date(post.updatedAt).toDateString()}`;
+  const date = post.createdAt === post.updatedAt ? new Date(post.createdAt).toDateString() : `updated ${new Date(post.updatedAt).toDateString()}` ?? '';
+
   if (!post) {
     notFound();
   }
@@ -18,8 +20,8 @@ export default async function Blog({ params }) {
       <span className="block text-sm text-center">{ date }</span>
       <div className="max-w-[36em] mx-auto shadow-lg"><img className="rounded object-cover" src={post.cover} alt={post.title} /></div>
       {post.description && <p>{post.description}</p>}
-      <div className="prose dark:prose-invert ">
-        <MDXRemote source={post.content} />
+      <div className="prose dark:prose-invert max-w-2xl mx-auto px-4 md:px-0">
+        <MDXRemote source={post.content} options={mdxOptions} />
       </div>
     </article>
   );
