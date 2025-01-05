@@ -2,6 +2,7 @@
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import { webProjects } from "@/utils/SliderData";
 import PortofolioCard from "@/components/PortofolioCard";
+import "@splidejs/react-splide/css";
 
 
 export default function Slides() {

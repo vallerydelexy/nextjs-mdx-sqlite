@@ -4,7 +4,6 @@ import Avatar from "@/components/Avatar";
 import GeometricLottie from "@/components/GeometricLottie";
 
 import Whatsapp from "@/components/Whatsapp";
-import "@splidejs/react-splide/css";
 import Slides from "@/components/Slides";
 
 export default async function Home() {
