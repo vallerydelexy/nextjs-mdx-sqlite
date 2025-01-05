@@ -1,4 +1,5 @@
-import { useMemo, useCallback } from "react";
+'use client'
+import { useMemo, useCallback, useEffect } from "react";
 import { useTheme } from "next-themes";
 
 import { META_THEME_COLORS } from "@/config/site";
@@ -13,10 +14,17 @@ export function useMetaColor() {
   }, [resolvedTheme]);
 
   const setMetaColor = useCallback((color) => {
-    document
-      .querySelector('meta[name="theme-color"]')
-      ?.setAttribute("content", color);
+    if (typeof document !== 'undefined') {
+      document
+        .querySelector('meta[name="theme-color"]')
+        ?.setAttribute("content", color);
+    }
   }, []);
+
+  // Apply the meta color whenever it changes
+  useEffect(() => {
+    setMetaColor(metaColor);
+  }, [metaColor, setMetaColor]);
 
   return {
     metaColor,
