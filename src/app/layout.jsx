@@ -1,23 +1,25 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import { LayoutHeader } from "@/components/LayoutHeader";
 import "./globals.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
+import { ThemeProvider } from "@/components/theme-provider";
+import { siteConfig } from "@/config/site";
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <title>My App</title>
+        <meta name="description" content="My app description" />
+        <link rel="icon" href="/favicon.ico" />
+      </head>
+      <body className="">
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <LayoutHeader />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

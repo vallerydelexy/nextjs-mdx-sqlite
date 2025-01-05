@@ -1,57 +1,34 @@
 import { notFound } from "next/navigation";
-import { CustomMDX } from "@/components/mdx";
 import Link from "next/link";
+import { MDXRemote } from "next-mdx-remote/rsc";
+import { getAllPosts, getPost } from "@/lib/utils";
+import Grain from "@/components/Grain";
 
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
-
-async function getPosts() {
-  const posts = await prisma.post.findMany();
-  return posts;
-}
-
-async function getPost(slug) {
-  const post = await prisma.post.findUnique({
-    where: { slug }
-  });
-  return post;
+export default async function Blog({ params }) {
+  const slug = (await params).slug;
+  const post = await getPost(slug);
+  const date = post.createdAt === post.createdAt ? new Date(post.createdAt).toDateString() : `updated ${new Date(post.updatedAt).toDateString()}`;
+  if (!post) {
+    notFound();
+  }
+  return (
+    <article className="prose dark:prose-invert max-w-7xl mx-auto pt-[4em]">
+      <Grain />
+      <h1 className="text-3xl font-bold mb-4 text-center">{post.title}</h1>
+      <span className="block text-sm text-center">{ date }</span>
+      <div className="max-w-[36em] mx-auto shadow-lg"><img className="rounded object-cover" src={post.cover} alt={post.title} /></div>
+      {post.description && <p>{post.description}</p>}
+      <div className="prose dark:prose-invert ">
+        <MDXRemote source={post.content} />
+      </div>
+    </article>
+  );
 }
 
 export async function generateStaticParams() {
-  const posts = await getPosts();
+  const posts = await getAllPosts();
 
   return posts.map((post) => ({
     slug: post.slug,
   }));
-}
-
-export default async function Blog({
-  params,
-}) {
-  const slug = (await params).slug;
-  const post = await getPost(slug);
-
-  if (!post) {
-    notFound();
-  }
-
-  return (
-    <>
-      <header>
-        <nav>
-          <Link href="/">👈 Go back home</Link>
-        </nav>
-      </header>
-      <main>
-        <h1 className="text-3xl font-bold mb-4">{post.title}</h1>
-        {post.description && (
-          <p>{post.description}</p>
-        )}
-        <article className="prose">
-          <CustomMDX source={post.content} />
-        </article>
-      </main>
-    </>
-  );
 }

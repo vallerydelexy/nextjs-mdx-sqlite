@@ -2,9 +2,7 @@ import { PrismaClient } from "@prisma/client";
 import { readdirSync, readFileSync, statSync } from "fs";
 import { join, extname, basename } from "path";
 
-
 const prisma = new PrismaClient();
-
 
 function parseFrontmatter(fileContent) {
   const frontmatterRegex = /---\s*([\s\S]*?)\s*---/;
@@ -25,7 +23,10 @@ function parseFrontmatter(fileContent) {
 }
 
 function getMDXFiles(dir) {
-  return readdirSync(dir).filter((file) => extname(file) === ".mdx");
+  return readdirSync(dir).filter((file) => {
+    const ext = extname(file).toLowerCase();
+    return ext === ".md" || ext === ".mdx";
+  });
 }
 
 function readMDXFile(filePath) {
@@ -48,7 +49,7 @@ function getMDXData(dir) {
 }
 
 export function getPostsLocally() {
-  return getMDXData(join(process.cwd(), "src", "app", "posts"));
+  return getMDXData(join(process.cwd(), "posts"));
 }
 
 async function main() {
@@ -64,6 +65,7 @@ async function main() {
         title: metadata.title || slug,
         description: metadata.description || "",
         slug,
+        cover: metadata.cover || "",
         content,
       },
     });
