@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
 
 export default function DraggableWhatsapp() {
+  if (typeof window === "undefined") return;
   const todayDate = new Date();
   const [inputValue, setInputValue] = useState("");
   const [messages, setMessage] = useState([]);

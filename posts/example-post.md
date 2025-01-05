@@ -42,7 +42,7 @@ CREATE TABLE customers (
 
 Database design is the process of creating an efficient and organized structure for storing and managing data in a database. It involves defining tables, columns, relationships, and constraints to ensure data integrity, minimize redundancy, and optimize performance. Proper database design is the foundation for building robust and scalable applications.
 
-![database schema design](../public/images/database-schema-design.png "database schema design")
+![database schema design](images/database-schema-design.png "database schema design")
 
 ## Data Integrity
 
@@ -257,25 +257,25 @@ CREATE TABLE shipments (
 ## Relationships
 
 Relationships are the cornerstone of relational databases, allowing you to connect and combine data from different tables. There are three main types of relationships:
-![relationship](../public/images/relationship-db.jpg "relationship")
+![relationship](images/relationship-db.jpg "relationship")
 
 ## One-to-One Relationships
 
 In a one-to-one relationship, each record in one table is associated with exactly one record in another table, and vice versa. For example, consider a database where each employee has one and only one manager, and each manager manages one and only one employee. This type of relationship is relatively rare in practice.
 
-![one on one](../public/images/one-on-one.png "one on one")
+![one on one](images/one-on-one.png "one on one")
 
 ## One-to-Many Relationships
 
 In a one-to-many relationship, each record in one table (the "one" side) can be associated with multiple records in another table (the "many" side). For example, in a database for a school, one teacher can teach multiple classes, but each class is taught by only one teacher.
 
-![one to many](../public/images/one-to-many.png "one to many")
+![one to many](images/one-to-many.png "one to many")
 
 ## Many-to-Many Relationships
 
 In a many-to-many relationship, each record in one table can be associated with multiple records in another table, and vice versa. For example, in a database for a university, a student can enroll in multiple courses, and each course can have multiple students enrolled.
 
-![many to many](../public/images/many-to-many.jpg "many to many")
+![many to many](images/many-to-many.jpg "many to many")
 
 ## Summary of Relationships
 
@@ -385,7 +385,7 @@ Cardinality defines the numerical relationship between two entities. It specifie
 - One-to-Many (1:N): One instance of Entity A can be associated with multiple instances of Entity B, but one instance of Entity B can be associated with only one instance of Entity A.
 - Many-to-Many (M:N): Multiple instances of Entity A can be associated with multiple instances of Entity B, and vice versa.
   In ER diagrams, cardinality is represented using specific notation, such as a single line for one-to-one, a line with an arrowhead for one-to-many, and a line with arrowheads at both ends for many-to-many relationships.
-  ![er diagram cardinallity](../public/images/er-diagram-cardinallity.png "er diagram cardinallity")
+  ![er diagram cardinallity](images/er-diagram-cardinallity.png "er diagram cardinallity")
 
 ## Modality
 
@@ -564,7 +564,7 @@ In this example, we create a users table with columns for `id` (integer), `name`
 
 Joins are like bridges that connect different tables in a database, allowing you to combine and retrieve related data from multiple sources. They are a fundamental concept in relational databases and are essential for querying and manipulating data efficiently.
 
-![joins](../public/images/joins.png "joins")
+![joins](images/joins.png "joins")
 
 ## Inner Join
 
