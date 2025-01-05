@@ -20,7 +20,7 @@ export function useMetaColor() {
   }, [resolvedTheme]);
 
   const setMetaColor = useCallback((color) => {
-    if (!isMounted) return;
+    if (!isMounted || typeof document === 'undefined') return;
     
     // Safely handle meta tag updates
     try {
