@@ -4,11 +4,21 @@ import { getPosts } from "@/lib/utils";
 import BlogPagination from "@/components/BlogPagination";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
+// Add route segment config to enable caching
+export const revalidate = 3600; // Revalidate every hour
+
+// Add dynamic metadata
+export async function generateMetadata() {
+  return {
+    title: "Blog Posts",
+    description: "Read our latest blog posts",
+  };
+}
+
 export default async function Blog({ searchParams }) {
   const page = parseInt((await searchParams).page || 1);
   const pageSize = 1;
-  const { posts, totalPosts } = await getPosts(page, pageSize);
-
+  const [{ posts, totalPosts }] = await Promise.all([getPosts(page, pageSize)]);
   const totalPages = Math.ceil(totalPosts / pageSize);
 
   return (
