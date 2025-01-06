@@ -1,12 +1,8 @@
 import Link from "next/link";
+import Image from "next/image";
 import { getPosts } from "@/lib/utils";
 import BlogPagination from "@/components/BlogPagination";
-import {
-  Card,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default async function Blog({ searchParams }) {
   const page = parseInt((await searchParams).page || 1);
@@ -16,26 +12,38 @@ export default async function Blog({ searchParams }) {
   const totalPages = Math.ceil(totalPosts / pageSize);
 
   return (
-    <main className="">
-      <h1 className="text-3xl font-bold mb-4 text-center">
-        Blog posts
-      </h1>
-      <ul>
+    <main>
+      <h1 className="text-3xl font-bold mb-4 text-center">Blog posts</h1>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {posts.map((post) => (
-          <li key={post.slug} className="flex flex-col gap-6">
-            <Link href={`/${post.slug}`} className="w-full mb-6">
-              <Card className="flex">
-                {post.cover && <div className="w-1/6"><img className="rounded object-cover" src={post.cover} alt={post.title} /></div>}
-                <CardHeader>
-                  <CardTitle>{post.title}</CardTitle>
-                  <CardDescription>{post.description}</CardDescription>
-                </CardHeader>
-              </Card>
-              
+          <Card key={post.id} className="overflow-hidden">
+            <Link href={`/${post.slug}`}>
+              <Image
+                src={`/${post.cover}`}
+                alt={post.title}
+                width={600}
+                height={400}
+                className="w-full h-48 object-cover"
+              />
+              <CardHeader>
+                <CardTitle className="text-xl font-semibold line-clamp-2">
+                  {post.title}
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground mb-4 line-clamp-3">
+                  {post.content.trim().split(" ").slice(0, 20).join(" ")}
+                </p>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-muted-foreground">
+                    {post.date}
+                  </span>
+                </div>
+              </CardContent>
             </Link>
-          </li>
+          </Card>
         ))}
-      </ul>
+      </div>
       <BlogPagination page={page} totalPages={totalPages} />
     </main>
   );
