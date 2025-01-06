@@ -14,6 +14,16 @@ export const getPosts = cache(async (page = 1, pageSize = 2) => {
     prisma.post.findMany({
       take: pageSize,
       skip,
+      select: {
+        id: true,
+        title: true,
+        slug: true,
+        cover: true,
+        description: true,
+        content: true,
+        createdAt: true,
+        updatedAt: true,
+      },
       orderBy: {
         updatedAt: "desc",
       },

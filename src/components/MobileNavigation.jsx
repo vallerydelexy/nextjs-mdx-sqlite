@@ -7,12 +7,13 @@ import { cn } from "@/lib/utils";
 import { useMetaColor } from "@/lib/meta-color";
 import { Button } from "@/components/ui/button"
 import {
-  Drawer,
-  DrawerContent,
-  DrawerTitle,
-  DrawerTrigger,
-  DrawerDescription,
-} from "@/components/ui/drawer"
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet"
 
 export default function MobileNavigation() {
   const [open, setOpen] = useState(false);
@@ -28,8 +29,8 @@ export default function MobileNavigation() {
 
   return (
     <div className="md:hidden">
-      <Drawer open={open} onOpenChange={onOpenChange}>
-        <DrawerTrigger asChild>
+      <Sheet open={open} onOpenChange={onOpenChange}>
+        <SheetTrigger asChild>
           <Button
             variant="ghost"
             className="-ml-2 mr-2 h-8 w-8 px-0 text-base hover:bg-transparent focus-visible:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0"
@@ -54,15 +55,16 @@ export default function MobileNavigation() {
             </svg>
             <span className="sr-only">Toggle Menu</span>
           </Button>
-        </DrawerTrigger>
-        <DrawerContent 
+        </SheetTrigger>
+        <SheetContent 
           id="mobile-navigation-content"
           className="max-h-[60svh] p-0"
+          side={'top'}
         >
-          <DrawerTitle className="sr-only">Navigation Menu</DrawerTitle>
-          <DrawerDescription id="mobile-nav-description" className="sr-only">
+          <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
+          <SheetDescription id="mobile-nav-description" className="sr-only">
             Navigation menu containing main navigation links and sidebar navigation sections
-          </DrawerDescription>
+          </SheetDescription>
           <div 
             className="overflow-auto p-6"
             aria-describedby="mobile-nav-description"
@@ -83,12 +85,12 @@ export default function MobileNavigation() {
               )}
             </nav>
             <div className="flex flex-col space-y-2">
-              {route.sidebarNav.map((item, index) => (
+              {route.blogNav.map((item, index) => (
                 <div key={index} className="flex flex-col space-y-3 pt-6">
                   <h4 className="font-medium" id={`section-${index}`}>{item.title}</h4>
                   {item?.items?.length && (
                     <nav 
-                      className="flex flex-col space-y-3"
+                      className="flex flex-col space-y-3 ml-2"
                       aria-labelledby={`section-${index}`}
                     >
                       {item.items.map((item) => (
@@ -118,8 +120,8 @@ export default function MobileNavigation() {
               ))}
             </div>
           </div>
-        </DrawerContent>
-      </Drawer>
+        </SheetContent>
+      </Sheet>
     </div>
   );
 }

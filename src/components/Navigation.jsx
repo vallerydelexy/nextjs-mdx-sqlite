@@ -29,6 +29,24 @@ export function Navigation() {
               </Link>
             )
         )}
+        {route.blogNav?.map(
+          (item) =>
+            item.href && (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={cn(
+                  "transition-colors hover:text-foreground/80",
+                  pathname === item.href
+                    ? "text-foreground"
+                    : "text-foreground/80"
+                )}
+              >
+                {item.title}
+              </Link>
+            )
+        )}
+        
       </div>
     </div>
   );
