@@ -3,9 +3,7 @@ import { getPosts } from "@/lib/utils";
 import BlogPagination from "@/components/BlogPagination";
 import {
   Card,
-  CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";

@@ -1,21 +1,27 @@
 "use client";
-import Lottie from "react-lottie-player";
 import animationData from "@/components/lottie/cirlce.json";
+import dynamic from "next/dynamic";
+
+const Lottie = dynamic(() => import("react-lottie-player"), {
+  ssr: false,
+});
+
 export default function Avatar() {
   return (
     <div>
       <span className="inline-block relative">
-        
-        <Lottie
-          animationData={animationData}
-          style={{
-            marginTop: "-1rem",
-            marginLeft: "-1rem",
-            position: "absolute",
-            zIndex: 1,
-          }}
-          play
-        />
+        {typeof window !== "undefined" && (
+          <Lottie
+            animationData={animationData}
+            style={{
+              marginTop: "-1rem",
+              marginLeft: "-1rem",
+              position: "absolute",
+              zIndex: 1,
+            }}
+            play
+          />
+        )}
         <img
           className="h-32 w-32 rounded-full motion-opacity-in-[0%] motion-blur-in-[5px]"
           src="/images/rizki-aprita.jpg"
