@@ -791,6 +791,6 @@ Ref: users.id < posts.user_id // Relationship between users and posts
 
 - Simple and human-readable syntax
 - Database-agnostic approach
-- Free visualization tool at [dbdiagram.io](dbdiagram.io)
+- Free visualization tool at [dbdiagram.io](https://dbdiagram.io/home)
 - Consistent conventions for readability and maintainability
 - Extensive documentation and examples

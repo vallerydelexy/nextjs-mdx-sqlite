@@ -7,7 +7,7 @@ export default function RootLayout({ children }) {
       <head>
         <title>Rizki Aprita</title>
         <meta name="description" content="Portfolio Rizki Aprita" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/images/favicon.ico" />
       </head>
       <body>
         <ThemeProvider
