@@ -20,6 +20,10 @@ export const route = {
           title: "Mastering Relational Database Design",
           href: "/mastering-relational-database-design",
         },
+        {
+          title: "Essential CLI/TUI Tools for Developers",
+          href: "/essential-cli-tui-tools-for-developers",
+        },
       ],
     },
   ],
