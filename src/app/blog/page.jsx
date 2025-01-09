@@ -17,7 +17,7 @@ export async function generateMetadata() {
 
 export default async function Blog({ searchParams }) {
   const page = parseInt((await searchParams).page || 1);
-  const pageSize = 1;
+  const pageSize = 10;
   const [{ posts, totalPosts }] = await Promise.all([getPosts(page, pageSize)]);
   const totalPages = Math.ceil(totalPosts / pageSize);
 
