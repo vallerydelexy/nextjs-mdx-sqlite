@@ -1,5 +1,6 @@
 import { LayoutHeader } from "@/components/LayoutHeader";
 import "./globals.css";
+import "highlight.js/styles/atom-one-dark.css";
 import { ThemeProvider } from "@/components/theme-provider";
 export default function RootLayout({ children }) {
   return (
