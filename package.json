@@ -11,8 +11,8 @@
     "start": "next start",
     "lint": "next lint",
     "db:seed": "node scripts/seed.js",
-    "db:update": "node scripts/update.js"
-
+    "db:update": "node scripts/update.js",
+    "make:index": "node scripts/generatePostIndex.js"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.1.0",
