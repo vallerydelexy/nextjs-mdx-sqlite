@@ -4,7 +4,7 @@ description: "An opinionated list of CLI/TUI applications for developer producti
 cover: images/kubectx.gif
 ---
 
-We, developers, spend a lot of time in our terminal. Or maybe we could spend even more, because there are so many great CLI/TUI tools that can boost the developer productivity, or just be fun to use.
+As developers, we spend a lot of time in our terminal. Or maybe we could spend even more, because there are so many great CLI/TUI tools that can boost the developer productivity, or just be fun to use.
 
 This article contains a categorized list of CLIs / TUIs I personally use and those widely adopted in the development community.
 
