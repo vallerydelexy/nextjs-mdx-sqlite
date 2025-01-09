@@ -1,0 +1,20 @@
+[
+  {
+    "title": "Essential CLI/TUI Tools for Developers",
+    "description": "An opinionated list of CLI/TUI applications for developer productivity.",
+    "cover": "images/kubectx.gif",
+    "slug": "essential-cli-tui-tools-for-developers",
+    "content": "We, developers, spend a lot of time in our terminal. Or maybe we could spend even more, because there are",
+    "createdAt": "2025-01-09T02:21:24.617Z",
+    "updatedAt": "2025-01-09T02:21:24.617Z"
+  },
+  {
+    "title": "Mastering Relational Database Design: A Comprehensive Guide",
+    "description": "",
+    "cover": "images/database-schema-design.png",
+    "slug": "mastering-relational-database-design",
+    "content": "# Introduction\n\nIn today's data-driven world, storing and managing information efficiently is crucial for businesses and organizations of all sizes. Relational",
+    "createdAt": "2025-01-09T02:21:24.618Z",
+    "updatedAt": "2025-01-09T02:21:24.619Z"
+  }
+]

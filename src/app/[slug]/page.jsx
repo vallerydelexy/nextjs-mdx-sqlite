@@ -1,16 +1,14 @@
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
-import { getAllPosts, getPost } from "@/lib/utils";
+import getPostsLocally from "@/utils/getPostLocally";
 import Grain from "@/components/Grain";
 import { mdxOptions } from "@/config/mdxOptions";
+import posts from "../blog/posts.json";
 
 export default async function Blog({ params }) {
   const slug = (await params).slug;
-  const post = await getPost(slug);
-  const date =
-    post.createdAt === post.updatedAt
-      ? new Date(post.createdAt).toDateString()
-      : `updated ${new Date(post.updatedAt).toDateString()}` ?? "";
+  const post = await getPostsLocally(slug);
+  const date = post.createdAt === post.updatedAt ? new Date(post.createdAt).toDateString() : `updated ${new Date(post.updatedAt).toDateString()}` ?? '';
 
   if (!post) {
     notFound();
@@ -37,8 +35,6 @@ export default async function Blog({ params }) {
 }
 
 export async function generateStaticParams() {
-  const posts = await getAllPosts();
-
   return posts.map((post) => ({
     slug: post.slug,
   }));
