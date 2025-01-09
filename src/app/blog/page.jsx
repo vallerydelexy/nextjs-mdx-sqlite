@@ -1,10 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
-import { getPosts } from "@/lib/utils";
 import BlogPagination from "@/components/BlogPagination";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import posts from "./posts.json";
 
-// Add route segment config to enable caching
 export const revalidate = 3600; // Revalidate every hour
 
 // Add dynamic metadata
@@ -17,8 +16,8 @@ export async function generateMetadata() {
 
 export default async function Blog({ searchParams }) {
   const page = parseInt((await searchParams).page || 1);
-  const pageSize = 1;
-  const [{ posts, totalPosts }] = await Promise.all([getPosts(page, pageSize)]);
+  const pageSize = 10;
+  const totalPosts = posts.length;
   const totalPages = Math.ceil(totalPosts / pageSize);
 
   return (
