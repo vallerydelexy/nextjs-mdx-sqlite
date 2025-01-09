@@ -1,20 +1,20 @@
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
-import getPostsLocally from "@/utils/getPostLocally";
+import {getPostBySlug} from "@/utils/helper";
 import Grain from "@/components/Grain";
 import { mdxOptions } from "@/config/mdxOptions";
 import posts from "../blog/posts.json";
 
 export default async function Blog({ params }) {
   const slug = (await params).slug;
-  const post = await getPostsLocally(slug);
+  const post = await getPostBySlug(slug);
   const date = post.createdAt === post.updatedAt ? new Date(post.createdAt).toDateString() : `updated ${new Date(post.updatedAt).toDateString()}` ?? '';
 
   if (!post) {
     notFound();
   }
   return (
-    <article className="prose dark:prose-invert max-w-7xl mx-auto pt-[4em]">
+    <article className="prose dark:prose-invert max-w-7xl mx-auto py-[4em]">
       <Grain />
       <h1 className="text-3xl font-bold mb-4 text-center">{post.title}</h1>
       <span className="block text-sm text-center">{date}</span>

@@ -31,7 +31,7 @@ function readMDXFile(filePath) {
   return parseFrontmatter(rawContent);
 }
 
-export default async function getPostsLocally(slug) {
+export default async function getPostBySlug(slug) {
   const dir = join(process.cwd(), "posts");
   const mdxFiles = getMDXFiles(dir);
 
@@ -56,5 +56,5 @@ export default async function getPostsLocally(slug) {
     }
   }
 
-  return null; // Return null if no post with the matching slug is found
+  return null;
 }

@@ -1,41 +1,9 @@
-import { readdirSync, readFileSync, statSync, writeFileSync } from "fs";
+import { statSync, writeFileSync } from "fs";
 import { join, extname, basename } from "path";
+import { getMDXFiles, readMDXFile, generateExcerpt } from "../src/utils/helper.js";
 
-function parseFrontmatter(fileContent) {
-  const frontmatterRegex = /---\s*([\s\S]*?)\s*---/;
-  const content = fileContent.replace(frontmatterRegex, "").trim();
-  const match = frontmatterRegex.exec(fileContent);
-  const frontMatterBlock = match[1];
-  const frontMatterLines = frontMatterBlock.trim().split("\n");
-  const metadata = {};
 
-  frontMatterLines.forEach((line) => {
-    const [key, ...valueArr] = line.split(": ");
-    let value = valueArr.join(": ").trim();
-    value = value.replace(/^['"](.*)['"]$/, "$1");
-    metadata[key.trim()] = value;
-  });
-
-  return { metadata: metadata, content: content };
-}
-
-function getMDXFiles(dir) {
-  return readdirSync(dir).filter((file) => {
-    const ext = extname(file).toLowerCase();
-    return ext === ".md" || ext === ".mdx";
-  });
-}
-
-function readMDXFile(filePath) {
-  const rawContent = readFileSync(filePath, "utf-8");
-  return parseFrontmatter(rawContent);
-}
-
-function generateExcerpt(content) {
-  return content.split(" ").slice(0, 20).join(" ");
-}
-
-function getMDXData(dir) {
+function generatePostIndex(dir) {
   const mdxFiles = getMDXFiles(dir);
   return mdxFiles.map((file) => {
     const { metadata, content } = readMDXFile(join(dir.toString(), file));
@@ -56,7 +24,7 @@ function getMDXData(dir) {
 }
 
 async function main() {
-    const posts = getMDXData(join(process.cwd(), "posts"));
+    const posts = generatePostIndex(join(process.cwd(), "posts"));
     writeFileSync("src/app/blog/posts.json", JSON.stringify(posts));
 }
 

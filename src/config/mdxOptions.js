@@ -5,6 +5,9 @@ import typescript from "highlight.js/lib/languages/typescript";
 import javascript from "highlight.js/lib/languages/javascript";
 import php from "highlight.js/lib/languages/php";
 import sql from "highlight.js/lib/languages/sql";
+import go from "highlight.js/lib/languages/go";
+import yaml from "highlight.js/lib/languages/yaml";
+import dockerfile from "highlight.js/lib/languages/dockerfile";
 
 const highlightOptions = {
   languages: {
@@ -12,6 +15,9 @@ const highlightOptions = {
     javascript,
     php,
     sql,
+    go,
+    yaml,
+    dockerfile,
   },
   aliases: {
     ts: "typescript",

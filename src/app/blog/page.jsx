@@ -16,14 +16,14 @@ export async function generateMetadata() {
 
 export default async function Blog({ searchParams }) {
   const page = parseInt((await searchParams).page || 1);
-  const pageSize = 10;
+  const pageSize = 9;
   const totalPosts = posts.length;
   const totalPages = Math.ceil(totalPosts / pageSize);
 
   return (
     <main>
       <h1 className="text-3xl font-bold mb-4 text-center">Blog posts</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
         {posts.map((post) => (
           <Card key={post.id} className="overflow-hidden">
             <Link href={`/${post.slug}`}>
