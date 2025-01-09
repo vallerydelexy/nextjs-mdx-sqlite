@@ -5,6 +5,7 @@
   "private": true,
   "scripts": {
     "db:fresh": "prisma generate && prisma migrate dev --name init && node scripts/seed.js",
+    "postinstall": "prisma generate",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
