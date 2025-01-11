@@ -1,5 +1,5 @@
 import { Item } from "@radix-ui/react-dropdown-menu";
-import blogPosts fron "@/app/blog/posts.json";
+import blogPosts from "@/app/blog/posts.json";
 
 export const route = {
   mainNav: [
