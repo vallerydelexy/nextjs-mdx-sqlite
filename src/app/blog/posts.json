@@ -1,1 +1,38 @@
-[{"title":"Essential CLI/TUI Tools for Developers","description":"An opinionated list of CLI/TUI applications for developer productivity.","cover":"images/kubectx.gif","slug":"essential-cli-tui-tools-for-developers","content":"As developers, we spend a lot of time in our terminal. Or maybe we could spend even more, because there","createdAt":"2025-01-09T14:21:24.243Z","updatedAt":"2025-01-09T14:21:24.261Z"},{"title":"How to build github action runner: A Dockerfile Guide","description":"A guide on why and how to build a custom GitHub Actions Runner that uses GPU.","cover":"images/github-actions.webp","slug":"how-to-build-github-action-runner","content":"GitHub Actions is a powerful tool for automating your development workflow. While GitHub provides hosted runners, sometimes you need a","createdAt":"2025-01-09T17:40:45.590Z","updatedAt":"2025-01-09T17:47:35.925Z"},{"title":"Mastering Relational Database Design: A Comprehensive Guide","description":"","cover":"images/database-schema-design.png","slug":"mastering-relational-database-design","content":"# Introduction\r\n\r\nIn today's data-driven world, storing and managing information efficiently is crucial for businesses and organizations of all sizes. Relational","createdAt":"2025-01-03T18:07:26.883Z","updatedAt":"2025-01-07T20:34:54.927Z"},{"title":"SOLID Principles with Go","description":"The SOLID principles are a set of design guidelines that help developers write more maintainable, scalable, and testable code.","cover":"images/solid.webp","slug":"solid-principle-with-go","content":"SOLID stands for: Single Responsibility, Open-Closed, Liskov Substitution, Interface Segregation, and Dependency Inversion. Each principle plays a vital role in","createdAt":"2025-01-09T17:28:25.653Z","updatedAt":"2025-01-09T17:38:44.500Z"}]
+[
+  {
+    "title": "How to build github action runner: A Dockerfile Guide",
+    "description": "A guide on why and how to build a custom GitHub Actions Runner that uses GPU.",
+    "cover": "images/github-actions.webp",
+    "slug": "how-to-build-github-action-runner",
+    "content": "GitHub Actions is a powerful tool for automating your development workflow. While GitHub provides hosted runners, sometimes you need a",
+    "createdAt": "2025-01-09T17:40:45.590Z",
+    "updatedAt": "2025-01-09T17:47:35.925Z"
+  },
+  {
+    "title": "SOLID Principles with Go",
+    "description": "The SOLID principles are a set of design guidelines that help developers write more maintainable, scalable, and testable code.",
+    "cover": "images/solid.webp",
+    "slug": "solid-principle-with-go",
+    "content": "SOLID stands for: Single Responsibility, Open-Closed, Liskov Substitution, Interface Segregation, and Dependency Inversion. Each principle plays a vital role in",
+    "createdAt": "2025-01-09T17:28:25.653Z",
+    "updatedAt": "2025-01-09T17:38:44.500Z"
+  },
+  {
+    "title": "Essential CLI/TUI Tools for Developers",
+    "description": "An opinionated list of CLI/TUI applications for developer productivity.",
+    "cover": "images/kubectx.gif",
+    "slug": "essential-cli-tui-tools-for-developers",
+    "content": "As developers, we spend a lot of time in our terminal. Or maybe we could spend even more, because there",
+    "createdAt": "2025-01-09T14:21:24.243Z",
+    "updatedAt": "2025-01-09T14:21:24.261Z"
+  },
+  {
+    "title": "Mastering Relational Database Design: A Comprehensive Guide",
+    "description": "",
+    "cover": "images/database-schema-design.png",
+    "slug": "mastering-relational-database-design",
+    "content": "# Introduction\r\n\r\nIn today's data-driven world, storing and managing information efficiently is crucial for businesses and organizations of all sizes. Relational",
+    "createdAt": "2025-01-03T18:07:26.883Z",
+    "updatedAt": "2025-01-07T20:34:54.927Z"
+  }
+]
