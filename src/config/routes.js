@@ -11,12 +11,16 @@ export const route = {
       title: "Portfolio",
       href: "/#portfolio",
     },
+    {
+      title: "Contact",
+      href: "/contact",
+    },
   ],
   blogNav: [
     {
       title: "Blog",
       href: "/blog",
-      items: blogPosts.map((post) => ({title: post.title, href: `/${post.slug}`}))
+      items: blogPosts.map((post) => ({ title: post.title, href: `/${post.slug}` }))
     },
   ],
 };
