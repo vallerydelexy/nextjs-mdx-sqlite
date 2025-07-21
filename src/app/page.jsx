@@ -40,16 +40,7 @@ export default async function Home() {
           </div>
           <Slides />
         </div>
-        <div className="relative mx-auto bg-white dark:bg-gray-800 bg-opacity-25 dark:bg-opacity-75 backdrop-filter backdrop-blur-sm md:max-w-lg shadow rounded">
-        <div className="px-4 py-5 sm:px-6">
-        <h3 className="text-lg leading-6 font-medium text-gray-900 dark:text-gray-100">
-          Fun Stuff
-        </h3>
-        <span>because why not</span>
-        </div>
-        <Paint />
-
-        </div>
+        
       </main>
     </div>
   );
