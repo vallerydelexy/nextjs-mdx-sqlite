@@ -4,6 +4,7 @@ import Avatar from "@/components/Avatar";
 import GeometricLottie from "@/components/GeometricLottie";
 import Whatsapp from "@/components/Whatsapp";
 import Slides from "@/components/Slides";
+import CardStack from "@/components/CardStack"
 
 export default async function Home() {
   return (
@@ -40,7 +41,7 @@ export default async function Home() {
           </div>
           <Slides />
         </div>
-        
+        <CardStack />
       </main>
     </div>
   );
