@@ -42,7 +42,7 @@ export default async function Home() {
           <Slides />
         </div>
         <section className="relative flex items-center justify-center ">
-          <section className="relative flex items-center justify-center hover:pt-[30vh] transition-all duration-500 ease-in-out">
+          <section className="relative flex items-center justify-center hover:pt-[30vh] transition-all duration-500 ease-in-out ">
             <div className="pointer-events-none absolute inset-0 z-0 transition-colors duration-[2s] ease-in-out" />
             <CardStack />
           </section>
