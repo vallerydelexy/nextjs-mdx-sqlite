@@ -98,6 +98,16 @@ export default function Skillset() {
                 />
               </Link>
             </dd>
+
+            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+              <Link href="https://inertiajs.com/" className="hover:motion-preset-confetti">
+                <img
+                  className="h-24 w-24"
+                  src="inertia.svg"
+                  alt="Inertia.js open source contributor"
+                />
+              </Link>
+            </dd>
           </div>
           {/* Rest of the skills sections remain unchanged */}
 
