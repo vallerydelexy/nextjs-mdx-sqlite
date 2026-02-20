@@ -37,6 +37,7 @@ export const webProjects = [
     year: "2023",
   },
   {
+    image: "/images/placeholder-migration.jpg",
     logo: "/images/kuncie/logo.light.svg",
     title: "kuncie",
     domain: "kuncie.com",

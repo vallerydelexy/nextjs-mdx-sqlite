@@ -3,7 +3,57 @@ import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import Link from "next/link";
 import Grain from "./Grain";
-
+const slugMap = {
+  JavaScript: "javascript",
+  TypeScript: "typescript",
+  Go: "go",
+  Java: "java",
+  Kotlin: "kotlin",
+  PHP: "php",
+  Dart: "dart",
+  Python: "python",
+  "C++": "cpp",
+  "Objective C": "objectivec",
+  Swift: "swift",
+  Lua: "lua",
+  SQL: "sql",
+  "Zoho Deluge": "zohodeluge",
+  Docker: "docker",
+  "React / Next JS": "react",
+  "Vue / Nuxt JS": "vuedotjs",
+  "Tailwind CSS": "tailwindcss",
+  "Bootstrap CSS": "bootstrap",
+  Wordpress: "wordpress",
+  "Laravel Blade": "laravel",
+  Laravel: "laravel",
+  Django: "django",
+  "Express JS": "express",
+  "Node JS": "nodejs",
+  Strapi: "strapi",
+  Flutter: "flutter",
+  "React Native": "reactnative",
+  "Android Native": "android",
+  "iOS Native": "ios",
+  MySQL: "mysql",
+  PostgreSQL: "postgresql",
+  MongoDB: "mongodb",
+  Redis: "redis",
+  GraphQL: "graphql",
+  Git: "git",
+  Jenkins: "jenkins",
+  "Gitlab CI": "gitlab",
+  Nginx: "nginx",
+  AWS: "amazonaws",
+  "Alibaba Cloud": "alibabacloud",
+  "Google Cloud": "googlecloud",
+  "Digital Ocean": "digitalocean",
+  Heroku: "heroku",
+  Vercel: "vercel",
+  Netlify: "netlify",
+  Azure: "azure",
+  "Digital Ocean": "digitalocean",
+  "Digital Ocean": "digitalocean",
+};
 const techstack = [
   {
     name: "Languages",
@@ -116,15 +166,15 @@ export default function Skillset() {
         {techstack.map((section) => (
           <div
             key={section.name}
-            className="grid grid-cols-[120px_1fr] sm:grid-cols-[140px_1fr] gap-4 py-4"
+            className="flex flex-col sm:grid sm:grid-cols-[140px_1fr] gap-3 sm:gap-4 py-4"
           >
-            {/* Label */}
-            <div className="flex flex-col gap-0.5 pt-0.5">
+            {/* Label - horizontal on mobile */}
+            <div className="flex items-center gap-2 sm:flex-col sm:items-start sm:gap-0.5 sm:pt-0.5">
               <span className="text-base">{section.emoji}</span>
               <span className="text-[10px] tracking-widest uppercase text-gray-400 dark:text-gray-500 font-medium">
                 {section.name}
               </span>
-              <span className="text-[10px] text-orange-500 dark:text-orange-400">
+              <span className="text-[10px] text-orange-500 dark:text-orange-400 ml-auto sm:ml-0">
                 {String(section.items.length).padStart(2, "0")}
               </span>
             </div>
@@ -136,6 +186,11 @@ export default function Skillset() {
                   key={i}
                   className="text-[11px] px-2.5 py-1 rounded-sm bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 border border-gray-200 dark:border-gray-700 hover:bg-orange-500 hover:text-white hover:border-orange-500 dark:hover:bg-orange-500 dark:hover:text-white dark:hover:border-orange-500 transition-colors cursor-default"
                 >
+                  <img
+                    src={`https://cdn.simpleicons.org/${slugMap[item]}`}
+                    className="w-3.5 h-3.5"
+                    alt={item}
+                  />
                   {item}
                 </span>
               ))}

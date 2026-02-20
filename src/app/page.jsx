@@ -4,6 +4,7 @@ import Avatar from "@/components/Avatar";
 import GeometricLottie from "@/components/GeometricLottie";
 import Whatsapp from "@/components/Whatsapp";
 import Slides from "@/components/Slides";
+import WhatsAppButton from "@/components/FloatingWhatsapp";
 
 export default async function Home() {
   return (
@@ -38,7 +39,10 @@ export default async function Home() {
           <div className="flex-grow-0 order-last sm:order-none">
             <Skillset />
           </div>
-
+          <WhatsAppButton
+            phoneNumber="6281276763536"
+            message="Hello! I'd like to learn more."
+          />
           {/* <Paint /> */}
         </div>
       </main>
