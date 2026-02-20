@@ -1,5 +1,6 @@
 [
   {
+    "id": "1",
     "title": "How to build github action runner: A Dockerfile Guide",
     "description": "A guide on why and how to build a custom GitHub Actions Runner that uses GPU.",
     "cover": "images/github-actions.webp",
@@ -9,6 +10,7 @@
     "updatedAt": "2025-01-09T17:47:35.925Z"
   },
   {
+    "id": "2",
     "title": "SOLID Principles with Go",
     "description": "The SOLID principles are a set of design guidelines that help developers write more maintainable, scalable, and testable code.",
     "cover": "images/solid.webp",
@@ -18,6 +20,7 @@
     "updatedAt": "2025-01-09T17:38:44.500Z"
   },
   {
+    "id": "3",
     "title": "Essential CLI/TUI Tools for Developers",
     "description": "An opinionated list of CLI/TUI applications for developer productivity.",
     "cover": "images/kubectx.gif",
@@ -27,6 +30,7 @@
     "updatedAt": "2025-01-09T14:21:24.261Z"
   },
   {
+    "id": "4",
     "title": "Mastering Relational Database Design: A Comprehensive Guide",
     "description": "",
     "cover": "images/database-schema-design.png",
