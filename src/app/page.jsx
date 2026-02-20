@@ -10,7 +10,6 @@ export default async function Home() {
   return (
     <div className="bg-gradient-to-l dark:from-stone-800 from-gray-200 dark:via-whatsapp-darkBrown via-fuchsia-200 dark:to-zinc-950 to-stone-100">
       <main className="pt-4 bg-gray-100/25 dark:bg-gray-900/25 overflow-x-hidden">
-        {/* All your existing content stays here */}
         <div className="md:mt-16 mx-auto max-w-7xl px-4">
           <div className="">
             <div className="text-center">
@@ -41,12 +40,6 @@ export default async function Home() {
           </div>
           <Slides />
         </div>
-        <section className="relative flex items-center justify-center ">
-          <section className="relative flex items-center justify-center hover:pt-[30vh] transition-all duration-500 ease-in-out ">
-            <div className="pointer-events-none absolute inset-0 z-0 transition-colors duration-[2s] ease-in-out" />
-            <CardStack />
-          </section>
-        </section>
       </main>
     </div>
   );
