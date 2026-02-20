@@ -4,7 +4,6 @@ import Avatar from "@/components/Avatar";
 import GeometricLottie from "@/components/GeometricLottie";
 import Whatsapp from "@/components/Whatsapp";
 import Slides from "@/components/Slides";
-import CardStack from "@/components/CardStack";
 
 export default async function Home() {
   return (
@@ -35,10 +34,12 @@ export default async function Home() {
           className="px-4 md:px-6 my-4 py-4 flex flex-col justify-between"
           id="portfolio"
         >
+          <Slides />
           <div className="flex-grow-0 order-last sm:order-none">
             <Skillset />
           </div>
-          <Slides />
+
+          {/* <Paint /> */}
         </div>
       </main>
     </div>

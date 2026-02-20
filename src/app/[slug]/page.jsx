@@ -10,15 +10,15 @@ import { mdxComponents } from "@/components/MdxComponents";
 export default async function Blog({ params }) {
   const slug = (await params).slug;
   const post = await getPostBySlug(slug);
-  const date = post.createdAt === post.updatedAt 
-    ? new Date(post.createdAt).toDateString() 
-    : `updated ${new Date(post.updatedAt).toDateString()}` ?? '';
-
   if (!post) {
     notFound();
   }
+  const date =
+    post.createdAt === post.updatedAt
+      ? new Date(post.createdAt).toDateString()
+      : (`updated ${new Date(post.updatedAt).toDateString()}` ?? "");
 
-  const isContactPage = slug === 'contact';
+  const isContactPage = slug === "contact";
 
   return (
     <article className="relative max-w-7xl mx-auto py-[4em]">
@@ -27,9 +27,15 @@ export default async function Blog({ params }) {
       {isContactPage ? (
         <div className="prose dark:prose-invert mx-auto">
           <h1 className="text-3xl font-bold mb-4 text-center">{post.title}</h1>
-          {post.description && <p className="text-center block">{post.description}</p>}
+          {post.description && (
+            <p className="text-center block">{post.description}</p>
+          )}
           <div className="max-w-2xl mx-auto px-4 md:px-0 mt-6">
-            <MDXRemote source={post.content} options={mdxOptions} components={mdxComponents} />
+            <MDXRemote
+              source={post.content}
+              options={mdxOptions}
+              components={mdxComponents}
+            />
           </div>
         </div>
       ) : (
@@ -39,22 +45,30 @@ export default async function Blog({ params }) {
             <TableOfContents content={post.content} />
           </aside>
           <div className="prose dark:prose-invert">
-            <h1 className="text-3xl font-bold mb-4 text-center">{post.title}</h1>
+            <h1 className="text-3xl font-bold mb-4 text-center">
+              {post.title}
+            </h1>
             <span className="block text-sm text-center">{date}</span>
-            {post.description && <p className="text-center block">{post.description}</p>}
-            
-            {post.cover && (
-                <div className="max-w-[36em] mx-auto shadow-lg my-6">
-                    <img
-                    className="rounded object-cover"
-                    src={post.cover}
-                    alt={post.title}
-                    />
-                </div>
+            {post.description && (
+              <p className="text-center block">{post.description}</p>
             )}
-            
+
+            {post.cover && (
+              <div className="max-w-[36em] mx-auto shadow-lg my-6">
+                <img
+                  className="rounded object-cover"
+                  src={post.cover}
+                  alt={post.title}
+                />
+              </div>
+            )}
+
             <div className="max-w-2xl mx-auto px-4 md:px-0">
-              <MDXRemote source={post.content} options={mdxOptions} components={mdxComponents} />
+              <MDXRemote
+                source={post.content}
+                options={mdxOptions}
+                components={mdxComponents}
+              />
             </div>
           </div>
         </div>
