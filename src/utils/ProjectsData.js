@@ -33,10 +33,12 @@ export const webProjects = [
       "/images/tehkota/1.png",
       "/images/tehkota/2.png",
       "/images/tehkota/3.png",
+      "/images/tehkota/4.png",
     ],
     logo: "/images/tehkota/logo_tehkota.png",
     title: "tehkota",
-    description: "ERP Internal Perusahaan Minuman Tehkota",
+    description:
+      "ERP Internal Perusahaan Minuman Tehkota & Landing Page Franchise",
     stacks: ["react", "nextjs", "codeigniter", "tailwind"],
     year: "2024",
   },
