@@ -41,9 +41,11 @@ export default async function Home() {
           id="portfolio"
         >
           <PastProjects />
+
           <div className="flex-grow-0 order-last sm:order-none">
             <Skillset />
           </div>
+
           <WhatsAppButton
             phoneNumber="6281276763536"
             message="Hello! I'd like to learn more."

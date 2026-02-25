@@ -55,6 +55,7 @@ export default async function Blog({ searchParams }) {
           </div>
         ))}
       </div>
+
       <BlogPagination page={page} totalPages={totalPages} />
     </main>
   );
