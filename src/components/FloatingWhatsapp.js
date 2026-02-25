@@ -24,7 +24,7 @@ const CloseIcon = () => (
 );
 
 export default function WhatsAppButton({
-  phoneNumber = "1234567890",
+  phoneNumber = "6281276763536",
   message = "Hello! I'd like to chat with you.",
   position = "bottom-right",
 }) {
@@ -33,9 +33,7 @@ export default function WhatsAppButton({
   const [isPulsing, setIsPulsing] = useState(true);
 
   useEffect(() => {
-    // Delay initial appearance for a smooth entry
     const timer = setTimeout(() => setIsVisible(true), 600);
-    // Stop pulse after a few seconds
     const pulseTimer = setTimeout(() => setIsPulsing(false), 5000);
     return () => {
       clearTimeout(timer);
@@ -89,36 +87,44 @@ export default function WhatsAppButton({
       <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
         {/* Chat bubble popup */}
         {isOpen && (
-          <div className="wa-bubble bg-white rounded-2xl shadow-2xl w-72 overflow-hidden border border-gray-100">
+          <div className="wa-bubble rounded-2xl shadow-2xl md:w-[32rem] overflow-hidden">
             {/* Header */}
             <div className="bg-[#075E54] p-4 flex items-center gap-3">
               <div className="relative">
-                <div className="w-10 h-10 rounded-full bg-[#25D366] flex items-center justify-center text-white">
-                  <WhatsAppIcon />
-                </div>
+                <img
+                  src="/images/rizki-aprita-bw.jpg"
+                  alt="Rizki Aprita"
+                  className="w-10 h-10 rounded-full object-cover"
+                />
                 <span className="absolute bottom-0 right-0 w-3 h-3 bg-green-400 border-2 border-[#075E54] rounded-full" />
               </div>
               <div>
-                <p className="text-white font-semibold text-sm">
-                  WhatsApp Chat
-                </p>
+                <p className="text-white font-semibold text-sm">Rizki Aprita</p>
                 <p className="text-green-300 text-xs flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 bg-green-400 rounded-full inline-block" />
                   Online
                 </p>
               </div>
             </div>
 
-            {/* Message bubble */}
-            <div className="p-4 bg-[#ECE5DD]">
+            {/* Message area — now uses chat background from old component */}
+            <div
+              className="p-4 bg-[#EFE7DD] gap-3 flex flex-col items-start"
+              style={{
+                backgroundImage: "url('/images/whatsapp-bg.png')",
+                backgroundRepeat: "repeat",
+                backgroundSize: "auto",
+              }}
+            >
               <div className="bg-white rounded-xl rounded-tl-none p-3 shadow-sm max-w-[85%] relative">
+                <p className="text-[#075E54] font-semibold text-xs mb-1">
+                  Rizki Aprita
+                </p>
                 <p className="text-gray-800 text-sm leading-relaxed">
-                  👋 Hi there! How can we help you today?
+                  jadi mau bikin apa nih?
                 </p>
                 <p className="text-gray-400 text-[10px] text-right mt-1">
                   Just now ✓✓
                 </p>
-                {/* Tail */}
                 <div
                   className="absolute -left-2 top-0 w-0 h-0"
                   style={{
@@ -135,7 +141,7 @@ export default function WhatsAppButton({
                 onClick={handleWhatsApp}
                 className="w-full bg-[#25D366] hover:bg-[#20b858] active:scale-95 text-white font-semibold py-3 px-4 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 text-sm"
               >
-                <WhatsAppIcon />
+                <WhatsAppIcon className="w-5 h-5" />
                 Start Chat
               </button>
             </div>
@@ -145,7 +151,6 @@ export default function WhatsAppButton({
         {/* Main FAB */}
         {isVisible && (
           <div className="relative wa-btn-animate">
-            {/* Ripple effect when pulsing */}
             {isPulsing && !isOpen && (
               <div className="absolute inset-0 rounded-full wa-ripple pointer-events-none" />
             )}

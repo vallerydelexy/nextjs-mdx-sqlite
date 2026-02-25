@@ -7,6 +7,7 @@ import PastProjects from "@/components/PastProjects";
 import WhatsAppButton from "@/components/FloatingWhatsapp";
 import IphoneLottie from "@/components/IphoneLottie";
 import TriangleLottie from "@/components/TriangleLottie";
+import Greeting from "@/components/Greeting";
 
 export default async function Home() {
   return (
@@ -29,7 +30,8 @@ export default async function Home() {
             </h2>
             <IphoneLottie />
             <TriangleLottie />
-            <Whatsapp />
+            {/* <Whatsapp /> */}
+            <Greeting />
             <GeometricLottie />
             <div id="skillset" className="pt-6 text-left"></div>
           </div>
