@@ -156,8 +156,14 @@ export default function PastProjects() {
         </h2>
       </div>
 
-      {/* Masonry grid — 2 columns, offset second column */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-start">
+      <div className="flex flex-col gap-4 sm:hidden">
+        {webProjects.map((project) => (
+          <ProjectCard key={project.title} project={project} />
+        ))}
+      </div>
+
+      {/* Desktop: masonry 2-column layout */}
+      <div className="hidden sm:grid grid-cols-2 gap-4 items-start">
         {/* Column 1 */}
         <div className="flex flex-col gap-4">
           {col1.map((project) => (
@@ -166,7 +172,7 @@ export default function PastProjects() {
         </div>
 
         {/* Column 2 — offset downward for asymmetry */}
-        <div className="flex flex-col gap-4 sm:mt-10">
+        <div className="flex flex-col gap-4 mt-10">
           {col2.map((project) => (
             <ProjectCard key={project.title} project={project} />
           ))}
