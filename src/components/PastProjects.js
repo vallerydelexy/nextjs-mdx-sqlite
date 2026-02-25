@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { webProjects } from "@/utils/ProjectsData";
 import DefaultLottie from "./DefaultLottie";
 
@@ -20,7 +20,6 @@ const stackColors = {
 };
 
 function ProjectCard({ project }) {
-  // Build the full image list: [project.image, ...project.imageSet] (deduplicated)
   const allImages = [
     ...(project.image ? [project.image] : []),
     ...(project.imageSet ?? []),
@@ -28,16 +27,30 @@ function ProjectCard({ project }) {
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const hasMultiple = allImages.length > 1;
+  const cardRef = useRef(null);
 
   const handleImageClick = () => {
     if (!hasMultiple) return;
+
     setCurrentIndex((prev) => (prev + 1) % allImages.length);
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        cardRef.current?.scrollIntoView({
+          behavior: "smooth",
+          block: "nearest",
+        });
+      });
+    });
   };
 
   const currentImage = allImages[currentIndex];
 
   return (
-    <div className="group relative rounded-xl overflow-hidden bg-white dark:bg-gray-900 shadow-sm hover:shadow-xl transition-shadow duration-300 border border-gray-100 dark:border-gray-800">
+    <div
+      ref={cardRef}
+      className="group relative rounded-xl overflow-hidden bg-white dark:bg-gray-900 shadow-sm hover:shadow-xl transition-shadow duration-300 border border-gray-100 dark:border-gray-800"
+    >
       {/* Image */}
       <div
         className={`relative overflow-hidden ${hasMultiple ? "cursor-pointer select-none" : ""}`}
@@ -87,7 +100,7 @@ function ProjectCard({ project }) {
           </div>
         )}
 
-        {/* Click hint overlay — shows briefly on first hover when multiple images */}
+        {/* Click hint overlay */}
         {hasMultiple && (
           <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
             <span className="text-[10px] font-mono tracking-widest uppercase bg-black/50 text-white px-3 py-1.5 rounded-full backdrop-blur-sm">
