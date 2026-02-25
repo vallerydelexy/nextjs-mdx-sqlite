@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import animationData from "@/components/lottie/cirlce.json";
+import animationData from "@/components/lottie/circle.json";
 import dynamic from "next/dynamic";
 
 const Lottie = dynamic(() => import("react-lottie-player"), {

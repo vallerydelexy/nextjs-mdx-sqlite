@@ -19,14 +19,7 @@ const stackColors = {
     "bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-200",
 };
 
-function ProjectCard({ project, size = "normal" }) {
-  const imgHeight =
-    size === "tall"
-      ? "h-72 sm:h-96"
-      : size === "short"
-        ? "h-40 sm:h-48"
-        : "h-52 sm:h-64";
-
+function ProjectCard({ project }) {
   // Build the full image list: [project.image, ...project.imageSet] (deduplicated)
   const allImages = [
     ...(project.image ? [project.image] : []),
@@ -47,7 +40,7 @@ function ProjectCard({ project, size = "normal" }) {
     <div className="group relative rounded-xl overflow-hidden bg-white dark:bg-gray-900 shadow-sm hover:shadow-xl transition-shadow duration-300 border border-gray-100 dark:border-gray-800">
       {/* Image */}
       <div
-        className={`flex justify-center items-center relative overflow-hidden ${imgHeight} ${hasMultiple ? "cursor-pointer select-none" : ""}`}
+        className={`relative overflow-hidden ${hasMultiple ? "cursor-pointer select-none" : ""}`}
         onClick={handleImageClick}
         title={hasMultiple ? "Click to cycle images" : undefined}
       >
@@ -56,7 +49,7 @@ function ProjectCard({ project, size = "normal" }) {
             key={currentImage}
             src={currentImage}
             alt={project.title}
-            className="w-full h-full object-cover object-top transition-all duration-500 group-hover:scale-105 animate-fadein"
+            className="w-full h-auto block transition-transform duration-500 group-hover:scale-105 animate-fadein"
           />
         ) : (
           <DefaultLottie />
@@ -148,23 +141,8 @@ function ProjectCard({ project, size = "normal" }) {
 }
 
 export default function PastProjects() {
-  // Split into two columns for masonry, alternating tall/short/normal
-  const sizes = [
-    "tall",
-    "normal",
-    "short",
-    "normal",
-    "tall",
-    "short",
-    "normal",
-    "normal",
-  ];
-
   const col1 = webProjects.filter((_, i) => i % 2 === 0);
   const col2 = webProjects.filter((_, i) => i % 2 === 1);
-
-  const colSizes1 = sizes.filter((_, i) => i % 2 === 0);
-  const colSizes2 = sizes.filter((_, i) => i % 2 === 1);
 
   return (
     <div className="w-full max-w-5xl mx-auto px-4 py-10">
@@ -182,23 +160,15 @@ export default function PastProjects() {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-start">
         {/* Column 1 */}
         <div className="flex flex-col gap-4">
-          {col1.map((project, i) => (
-            <ProjectCard
-              key={project.title}
-              project={project}
-              size={colSizes1[i]}
-            />
+          {col1.map((project) => (
+            <ProjectCard key={project.title} project={project} />
           ))}
         </div>
 
         {/* Column 2 — offset downward for asymmetry */}
         <div className="flex flex-col gap-4 sm:mt-10">
-          {col2.map((project, i) => (
-            <ProjectCard
-              key={project.title}
-              project={project}
-              size={colSizes2[i]}
-            />
+          {col2.map((project) => (
+            <ProjectCard key={project.title} project={project} />
           ))}
         </div>
       </div>

@@ -1,8 +1,7 @@
 import { PrismaClient } from "@prisma/client";
-import { getPostsLocally } from "@/utils/helper";
+import { getPostsLocally } from "../src/utils/helper";
 
 const prisma = new PrismaClient();
-
 
 async function updatePosts() {
   const posts = getPostsLocally();

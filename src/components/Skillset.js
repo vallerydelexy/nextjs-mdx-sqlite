@@ -6,7 +6,7 @@ import Grain from "./Grain";
 const slugMap = {
   JavaScript: "javascript",
   TypeScript: "typescript",
-  Go: "go",
+  Go: "golang",
   Java: "java",
   Kotlin: "kotlin",
   PHP: "php",

@@ -1,6 +1,6 @@
 ---
 title: "Contact"
-description: "Here's how you can reach me. I'm looking forward to hearing from you!"
+description: ""
 cover: ""
 ---
 

@@ -3,8 +3,10 @@ import Skillset from "@/components/Skillset";
 import Avatar from "@/components/Avatar";
 import GeometricLottie from "@/components/GeometricLottie";
 import Whatsapp from "@/components/Whatsapp";
-import Slides from "@/components/Slides";
+import PastProjects from "@/components/PastProjects";
 import WhatsAppButton from "@/components/FloatingWhatsapp";
+import IphoneLottie from "@/components/IphoneLottie";
+import TriangleLottie from "@/components/TriangleLottie";
 
 export default async function Home() {
   return (
@@ -25,7 +27,8 @@ export default async function Home() {
                 Software Engineer
               </span>
             </h2>
-
+            <IphoneLottie />
+            <TriangleLottie />
             <Whatsapp />
             <GeometricLottie />
             <div id="skillset" className="pt-6 text-left"></div>
@@ -35,7 +38,7 @@ export default async function Home() {
           className="px-4 md:px-6 my-4 py-4 flex flex-col justify-between"
           id="portfolio"
         >
-          <Slides />
+          <PastProjects />
           <div className="flex-grow-0 order-last sm:order-none">
             <Skillset />
           </div>
@@ -44,6 +47,16 @@ export default async function Home() {
             message="Hello! I'd like to learn more."
           />
           {/* <Paint /> */}
+        </div>
+        <div className="text-center text-sm text-gray-500 dark:text-gray-400 mt-8">
+          <p>
+            &copy; {new Date().getFullYear()} Rizki Aprita. All rights reserved.
+          </p>
+          <img
+            src="/images/design white.png"
+            alt="Signature"
+            className="mx-auto mt-2 opacity-50 w-96"
+          />
         </div>
       </main>
     </div>

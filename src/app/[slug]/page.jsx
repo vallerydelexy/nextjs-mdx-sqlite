@@ -6,6 +6,8 @@ import Grain from "@/components/Grain";
 import { mdxOptions } from "@/config/mdxOptions";
 import TableOfContents from "@/components/TableOfContent";
 import { mdxComponents } from "@/components/MdxComponents";
+import CatLottie from "@/components/CatLottie";
+import CoinLottie from "@/components/CoinLottie";
 
 export default async function Blog({ params }) {
   const slug = (await params).slug;
@@ -26,7 +28,14 @@ export default async function Blog({ params }) {
       {/* If it's the contact page, render a simpler centered layout */}
       {isContactPage ? (
         <div className="prose dark:prose-invert mx-auto">
-          <h1 className="text-3xl font-bold mb-4 text-center">{post.title}</h1>
+          <div className="flex justify-center items-center gap-4">
+            <CoinLottie />
+
+            <h1 className="text-3xl font-bold mb-4 text-center">
+              {post.title}
+            </h1>
+            <CatLottie />
+          </div>
           {post.description && (
             <p className="text-center block">{post.description}</p>
           )}
