@@ -87,7 +87,7 @@ export default function WhatsAppButton({
       <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
         {/* Chat bubble popup */}
         {isOpen && (
-          <div className="wa-bubble rounded-2xl shadow-2xl md:w-[32rem] overflow-hidden">
+          <div className="wa-bubble rounded-2xl shadow-2xl w-[22rem] md:w-[32rem] overflow-hidden">
             {/* Header */}
             <div className="bg-[#075E54] p-4 flex items-center gap-3">
               <div className="relative">
