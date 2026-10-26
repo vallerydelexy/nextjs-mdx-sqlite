@@ -13,12 +13,12 @@ export default function RootLayout({ children }) {
         />
         <link rel="icon" href="/favicon.ico" />
 
-        <meta itemprop="name" content="Rizki Aprita" />
+        <meta itemProp="name" content="Rizki Aprita" />
         <meta
-          itemprop="description"
+          itemProp="description"
           content="Rizki Aprita: Software Engineer Surabaya, Indonesia"
         />
-        <meta itemprop="image" content="/images/meta.jpg" />
+        <meta itemProp="image" content="/images/meta.jpg" />
 
         <meta property="og:url" content="https://aprita.web.id/" />
         <meta property="og:type" content="website" />
