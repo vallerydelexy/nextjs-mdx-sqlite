@@ -65,7 +65,7 @@ export default function ProjectArchive() {
   return (
     <div
       ref={listRef}
-      className="relative mt-10"
+      className="relative mt-12"
       onPointerMove={onPointerMove}
       onPointerLeave={hidePreview}
     >
@@ -126,10 +126,10 @@ export default function ProjectArchive() {
           </div>
 
           <div className="flex items-center justify-between border-t border-white/10 px-3 py-2">
-            <span className="cyber-mono text-[9px] uppercase tracking-[0.2em] text-zinc-500">
+            <span className="cyber-mono text-[10px] uppercase tracking-[0.14em] text-zinc-500">
               {active.stacks?.slice(0, 3).join(" / ") || "ARCHIVE"}
             </span>
-            <span className="cyber-mono text-[9px] text-[#ff2d2d]">↗</span>
+            <span className="cyber-mono text-[10px] text-[#ff2d2d]">↗</span>
           </div>
         </div>
       </div>
@@ -151,25 +151,25 @@ export default function ProjectArchive() {
                 onFocus={() => onFocusRow(index)}
                 onBlur={hidePreview}
               >
-                <span className="row-index cyber-mono w-7 shrink-0 pt-1 text-[11px] sm:pt-0">
+                <span className="row-index cyber-mono w-7 shrink-0 pt-1 text-xs sm:pt-0">
                   {String(index + 1).padStart(2, "0")}
                 </span>
 
                 <div className="min-w-0 flex-1">
                   <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
                     <h3
-                      className="cyber-glitch-text text-lg font-black uppercase leading-none tracking-tight text-zinc-100 sm:text-2xl"
+                      className="cyber-glitch-text text-lg font-black uppercase leading-[1.08] tracking-[-0.01em] text-zinc-100 sm:text-2xl"
                       data-text={project.title}
                     >
                       {project.title}
                     </h3>
                     {project.domain ? (
-                      <span className="cyber-mono text-[10px] tracking-[0.12em] text-zinc-600">
+                      <span className="cyber-mono text-[11px] tracking-[0.06em] text-zinc-500">
                         {project.domain}
                       </span>
                     ) : null}
                   </div>
-                  <p className="mt-2 block max-w-xl text-xs leading-relaxed text-zinc-500 sm:text-sm">
+                  <p className="mt-2 block max-w-xl text-sm leading-relaxed text-zinc-400">
                     {project.description}
                   </p>
                   <div className="mt-3 flex flex-wrap gap-1.5 sm:hidden">
@@ -197,7 +197,7 @@ export default function ProjectArchive() {
                   ))}
                 </span>
 
-                <span className="cyber-mono shrink-0 pt-1 text-[11px] text-zinc-500 sm:pt-0">
+                <span className="cyber-mono shrink-0 pt-1 text-xs text-zinc-400 sm:pt-0">
                   {project.year}
                 </span>
 

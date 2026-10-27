@@ -82,7 +82,7 @@ function SectionHead({ index, label, title, description }) {
         </h2>
         <p
           data-cyber-reveal
-          className="max-w-md text-sm leading-relaxed text-zinc-500 md:justify-self-end"
+          className="max-w-md text-[15px] leading-relaxed text-zinc-400 md:justify-self-end"
         >
           {description}
         </p>
@@ -485,12 +485,12 @@ export default function CyberExperience() {
 
               <div
                 data-cyber-reveal
-                className="mt-8 flex flex-wrap items-center justify-between gap-3 border-t border-white/10 pt-4"
+                className="mt-10 flex flex-wrap items-center justify-between gap-3 border-t border-white/10 pt-4"
               >
-                <span className="cyber-mono text-[9px] uppercase tracking-[0.24em] text-zinc-600">
+                <span className="cyber-mono text-[10px] uppercase tracking-[0.16em] text-zinc-500">
                   END OF INDEX / CLEARANCE LEVEL 02
                 </span>
-                <span className="cyber-mono text-[9px] uppercase tracking-[0.24em] text-zinc-500">
+                <span className="cyber-mono text-[10px] uppercase tracking-[0.16em] text-zinc-400">
                   10 FILES RECOVERED
                 </span>
               </div>
@@ -549,7 +549,7 @@ export default function CyberExperience() {
                 description="Have an idea that needs a system? Open a channel. The fastest route is WhatsApp — no brief required."
               />
 
-              <div className="mt-10">
+              <div className="mt-14">
                 <ContactUplink />
               </div>
             </div>

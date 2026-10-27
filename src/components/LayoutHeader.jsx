@@ -26,7 +26,7 @@ export function LayoutHeader() {
     <header
       className={`fixed top-0 z-50 w-full transition-all duration-300 ${
         overHero
-          ? "border-b border-transparent bg-transparent text-stone-100 [&_a]:text-stone-100 [&_button]:text-stone-100"
+          ? "border-b border-transparent bg-transparent text-stone-700 dark:text-stone-100 [&_a]:text-stone-700 dark:[&_a]:text-stone-100 [&_button]:text-stone-700 dark:[&_button]:text-stone-100"
           : overCyber
             ? "border-b border-white/10 bg-[#060608]/85 text-zinc-300 backdrop-blur supports-[backdrop-filter]:bg-[#060608]/70 [&_a]:text-zinc-300 [&_a:hover]:text-white [&_button]:text-zinc-300"
             : isAtTop

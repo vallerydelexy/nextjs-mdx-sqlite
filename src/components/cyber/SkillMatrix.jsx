@@ -14,7 +14,7 @@ const metrics = [
 
 export default function SkillMatrix() {
   return (
-    <div className="mt-10">
+    <div className="mt-14">
       <div
         data-cyber-stagger
         className="grid grid-cols-2 gap-px border border-white/10 bg-white/10 md:grid-cols-4"
@@ -38,7 +38,7 @@ export default function SkillMatrix() {
                 </span>
               ) : null}
             </div>
-            <p className="cyber-label mt-2 text-[9px]">{metric.label}</p>
+            <p className="cyber-label mt-2 text-[10px]">{metric.label}</p>
           </div>
         ))}
       </div>
@@ -51,11 +51,11 @@ export default function SkillMatrix() {
               <span className="h-1.5 w-1.5 rounded-full bg-zinc-700" />
               <span className="h-1.5 w-1.5 rounded-full bg-zinc-700" />
             </span>
-            <span className="cyber-mono text-[10px] tracking-[0.16em] text-zinc-500">
+            <span className="cyber-mono text-[11px] tracking-[0.1em] text-zinc-400">
               root@aprita:~$ cat stack.json
             </span>
           </div>
-          <span className="cyber-mono text-[9px] tracking-[0.24em] text-zinc-600">
+          <span className="cyber-mono text-[10px] tracking-[0.16em] text-zinc-500">
             {totalTech} NODES / ONLINE
           </span>
         </div>
@@ -74,11 +74,11 @@ export default function SkillMatrix() {
                 <span className="cyber-label text-[#ff2d2d]">
                   {section.code}_{String(index + 1).padStart(2, "0")}
                 </span>
-                <span className="cyber-mono text-[9px] tracking-[0.2em] text-zinc-600">
+                <span className="cyber-mono text-[10px] tracking-[0.16em] text-zinc-500">
                   {String(section.items.length).padStart(2, "0")} NODES
                 </span>
               </div>
-              <h3 className="mt-3 text-sm font-bold uppercase tracking-[0.2em] text-zinc-200">
+              <h3 className="mt-3 text-[15px] font-bold uppercase tracking-[0.1em] text-zinc-200">
                 {section.name}
               </h3>
               <div className="mt-4 flex flex-wrap gap-1.5">
@@ -97,7 +97,7 @@ export default function SkillMatrix() {
           >
             <div>
               <span className="cyber-label text-[#ff2d2d]">OSS_UPLINK</span>
-              <p className="mt-2 max-w-md text-xs leading-relaxed text-zinc-500 sm:text-sm">
+              <p className="mt-2 max-w-md text-sm leading-relaxed text-zinc-400">
                 Open source contributor. Signal boosted through community
                 infrastructure.
               </p>
@@ -111,10 +111,10 @@ export default function SkillMatrix() {
                   rel="noreferrer"
                   className="group inline-flex items-center gap-2 border border-white/10 px-4 py-2.5 transition-colors duration-300 hover:border-[#ff2d2d]/50 hover:bg-[#ff2d2d]/5"
                 >
-                  <span className="cyber-mono text-[11px] uppercase tracking-[0.18em] text-zinc-300">
+                  <span className="cyber-mono text-xs uppercase tracking-[0.1em] text-zinc-300">
                     {project.name}
                   </span>
-                  <span className="cyber-mono text-[10px] text-zinc-600 transition-colors group-hover:text-[#ff2d2d]">
+                  <span className="cyber-mono text-[11px] text-zinc-500 transition-colors group-hover:text-[#ff2d2d]">
                     ↗
                   </span>
                 </a>

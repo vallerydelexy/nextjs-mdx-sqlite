@@ -31,24 +31,24 @@ export default function Hero() {
       <div className="relative z-10 flex flex-col items-center px-6 pb-24 pt-24 text-center">
         <Avatar />
 
-        <p className="mt-8 text-[11px] font-medium uppercase tracking-[0.38em] text-stone-400">
+        <p className="mt-8 text-[11px] font-medium uppercase tracking-[0.38em] text-stone-500 dark:text-stone-400">
           Portfolio &mdash; Surabaya, Indonesia
         </p>
 
-        <h1 className="mt-4 text-5xl font-extrabold tracking-[-0.045em] text-stone-50 sm:text-7xl lg:text-8xl">
+        <h1 className="mt-4 text-5xl font-extrabold tracking-[-0.045em] text-slate-900 dark:text-stone-50 sm:text-7xl lg:text-8xl">
           Rizki Aprita
         </h1>
 
         <p
           key={phrase}
-          className="animate-fade-in mt-5 min-h-[2rem] text-lg font-medium text-stone-300 sm:text-2xl"
+          className="animate-fade-in mt-5 min-h-[2rem] text-lg font-medium text-stone-600 dark:text-stone-300 sm:text-2xl"
         >
           {phrases[phrase]}
         </p>
 
         <a
           href="#portfolio"
-          className="mt-10 inline-flex items-center gap-3 rounded-full border border-white/20 bg-white/10 px-6 py-3 text-sm font-medium text-stone-50 backdrop-blur-md transition-colors hover:bg-white/20"
+          className="mt-10 inline-flex items-center gap-3 rounded-full border border-black/10 bg-black/5 px-6 py-3 text-sm font-medium text-slate-900 backdrop-blur-md transition-colors hover:bg-black/10 dark:border-white/20 dark:bg-white/10 dark:text-stone-50 dark:hover:bg-white/20"
         >
           View selected work
           <span aria-hidden="true">&darr;</span>
@@ -58,7 +58,7 @@ export default function Hero() {
       <a
         href="#portfolio"
         aria-label="Scroll to selected work"
-        className="absolute bottom-8 left-8 z-10 hidden h-24 w-24 text-stone-300 sm:block"
+        className="absolute bottom-8 left-8 z-10 hidden h-24 w-24 text-stone-500 dark:text-stone-300 sm:block"
       >
         <svg
           viewBox="0 0 100 100"

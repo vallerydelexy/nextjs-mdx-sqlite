@@ -16,8 +16,8 @@ const FRAGMENT_SHADER = `
 
   uniform vec2 uRes;
   uniform vec2 uMouse;
-  uniform float uLens;
   uniform float uTime;
+  uniform float uLight;
   uniform vec3 uColorA;
   uniform vec3 uColorB;
   uniform vec3 uColorC;
@@ -86,6 +86,44 @@ const FRAGMENT_SHADER = `
     return col;
   }
 
+  vec3 spectrum(float ph) {
+    vec3 c = mix(vec3(0.74, 0.72, 0.96), vec3(0.95, 0.78, 0.90), smoothstep(0.0, 0.5, ph));
+    return mix(c, vec3(0.70, 0.84, 0.97), smoothstep(0.5, 1.0, ph));
+  }
+
+  vec3 sceneLight(vec2 uv) {
+    float aspect = uRes.x / uRes.y;
+    vec2 p = (uv - 0.5) * vec2(aspect, 1.0);
+    float t = uTime * 0.05;
+
+    vec2 w = vec2(
+      fbm(p * 1.15 + vec2(0.0, t)),
+      fbm(p * 1.15 + vec2(7.3, -t) + 4.1)
+    );
+    vec2 q = p + (w - 0.5) * 0.85;
+
+    float h = fbm(q * 1.5 + vec2(t * 0.6, -t * 0.4));
+    float h2 = fbm(q * 4.2 - vec2(t * 0.5, t * 0.3));
+
+    vec3 irid = spectrum(fract(h * 1.6 + h2 * 0.75));
+    vec3 col = mix(vec3(0.52, 0.53, 0.82), vec3(0.93, 0.92, 0.98), smoothstep(0.3, 0.78, h * 0.65 + h2 * 0.35));
+    col = mix(col, irid, 0.55);
+
+    float seam = pow(1.0 - abs(2.0 * h2 - 1.0), 6.0);
+    col += mix(vec3(1.0, 0.94, 0.99), irid, 0.5) * seam * 0.22;
+
+    float bloom = exp(-pow(length((q - vec2(-0.45, 0.4)) * vec2(1.0, 1.2)) * 1.5, 2.0));
+    col += vec3(1.0, 0.9, 0.96) * bloom * 0.07;
+
+    float cool = exp(-pow(length((q - vec2(0.5, -0.5)) * vec2(1.0, 1.3)) * 1.4, 2.0));
+    col += vec3(0.68, 0.78, 1.0) * cool * 0.07;
+
+    float vig = smoothstep(1.5, 0.4, length(p));
+    col *= 0.92 + 0.12 * vig;
+
+    return col;
+  }
+
   vec3 bubbleLayer(vec2 uv, vec3 col) {
     float aspect = uRes.x / uRes.y;
 
@@ -149,63 +187,35 @@ const FRAGMENT_SHADER = `
     float aspect = uRes.x / uRes.y;
     vec2 auv = (uv - 0.5) * vec2(aspect, 1.0);
 
-    vec3 col = scene(uv);
-
-    vec2 d = auv - uMouse;
-    float dist = length(d);
-    float ang = atan(d.y, d.x);
-    vec2 ring = vec2(cos(ang), sin(ang));
-
-    float lobeA = noise(ring * 1.45 + vec2(0.0, uTime * 0.045));
-    float lobeB = noise(ring * 3.1 - vec2(uTime * 0.035, 3.1));
-    float lobeC = noise(ring * 6.4 + vec2(7.3, -uTime * 0.025));
-    float wobble =
-      (lobeA - 0.5) * 0.26 +
-      (lobeB - 0.5) * 0.08 +
-      (lobeC - 0.5) * 0.025;
-
-    float radius = uLens * (1.0 + wobble);
-    float rn = dist / max(radius, 0.0001);
-    float nd = clamp(rn, 0.0, 1.0);
-    float mask = 1.0 - smoothstep(0.995, 1.0, nd);
-    vec2 dir = d / max(dist, 0.00001);
-
-    float shadow = smoothstep(1.35, 0.95, rn) * (1.0 - mask);
-    col *= 1.0 - shadow * 0.22;
-
-    if (mask > 0.0) {
-      vec2 dirUv = dir * vec2(1.0 / aspect, 1.0);
-      float bend = pow(nd, 1.7) * 0.15;
-      vec2 uvBase = uv + dirUv * bend;
-
-      float ca = 0.0015 + 0.012 * pow(nd, 2.4);
-      vec3 refr;
-      refr.r = scene(uvBase + dirUv * ca).r;
-      refr.g = scene(uvBase).g;
-      refr.b = scene(uvBase - dirUv * ca).b;
-
-      refr *= 1.0 + 0.16 * (1.0 - nd);
-
-      vec3 N = vec3(dir * nd, sqrt(max(0.0, 1.0 - nd * nd)));
-      N.xy += vec2(lobeA - 0.5, lobeB - 0.5) * 0.16;
-      N = normalize(N);
-      vec3 L = normalize(vec3(-0.5, 0.62, 0.72));
-      float diff = max(dot(N, L), 0.0);
-      refr += vec3(0.98, 0.93, 0.85) * pow(diff, 28.0) * 0.95;
-      refr += vec3(0.85, 0.78, 0.66) * pow(diff, 5.0) * 0.08;
-
-      float fres = pow(nd, 4.0);
-      refr = mix(refr, vec3(0.97, 0.95, 0.91), fres * 0.5);
-      refr *= 1.0 - 0.24 * smoothstep(0.74, 0.97, nd) * (1.0 - smoothstep(0.97, 1.0, nd));
-
-      vec2 h2 = d - vec2(0.4, -0.32) * uLens;
-      float s2 = exp(-pow(length(h2) / (0.11 * uLens), 2.0));
-      refr += s2 * 0.22 * mask;
-
-      col = mix(col, refr, mask);
-    }
+    vec3 col = uLight > 0.5 ? sceneLight(uv) : scene(uv);
 
     col = bubbleLayer(uv, col);
+
+    // Pointer light: a broad bloom that refracts the surface it passes over.
+    vec2 ld = (auv - uMouse) * vec2(1.0, 1.1);
+    float ldist = length(ld);
+
+    if (ldist < 1.2) {
+      float falloff = exp(-pow(ldist / 0.46, 2.0));
+      float core = exp(-pow(ldist / 0.15, 2.0));
+
+      float swirl = fbm(auv * 3.1 + vec2(uTime * 0.09, -uTime * 0.07));
+      float grain2 = fbm(auv * 6.4 + swirl * 1.8 - uTime * 0.05);
+      float filament = pow(1.0 - abs(2.0 * grain2 - 1.0), 7.0);
+
+      vec3 irid = mix(
+        0.5 + 0.5 * cos(6.2831 * (swirl * 1.5 + ldist * 0.9 + vec3(0.0, 0.18, 0.36))),
+        spectrum(fract(swirl * 1.4 + ldist * 0.8)),
+        uLight
+      );
+      vec3 lightCol = mix(vec3(1.0, 0.94, 0.97), irid, 0.6);
+      lightCol += vec3(1.0, 0.82, 0.94) * filament * 0.6;
+
+      col = mix(col, col * vec3(1.03, 0.99, 1.05), falloff * uLight * 0.7);
+      col += lightCol * falloff * mix(0.46, 0.16, uLight);
+      col += irid * pow(core, 2.0) * 0.18;
+      col += vec3(1.0, 0.97, 0.98) * pow(core, 1.4) * mix(0.34, 0.1, uLight);
+    }
 
     float grain = hash(gl_FragCoord.xy * 0.7 + fract(uTime) * 137.0) - 0.5;
     col += grain * 0.05;
@@ -281,8 +291,8 @@ export default function HeroCanvas({ className = "" }) {
     const uniforms = {
       res: gl.getUniformLocation(program, "uRes"),
       mouse: gl.getUniformLocation(program, "uMouse"),
-      lens: gl.getUniformLocation(program, "uLens"),
       time: gl.getUniformLocation(program, "uTime"),
+      light: gl.getUniformLocation(program, "uLight"),
       a: gl.getUniformLocation(program, "uColorA"),
       b: gl.getUniformLocation(program, "uColorB"),
       c: gl.getUniformLocation(program, "uColorC"),
@@ -290,9 +300,12 @@ export default function HeroCanvas({ className = "" }) {
       pop: gl.getUniformLocation(program, "uBubblesPop"),
     };
 
+    gl.useProgram(program);
+
     gl.uniform3fv(uniforms.a, COLORS.a);
     gl.uniform3fv(uniforms.b, COLORS.b);
     gl.uniform3fv(uniforms.c, COLORS.c);
+
 
     const POP_SECONDS = 0.55;
 
@@ -400,7 +413,6 @@ export default function HeroCanvas({ className = "" }) {
       gl.useProgram(program);
       gl.uniform2f(uniforms.res, canvas.width, canvas.height);
       gl.uniform2f(uniforms.mouse, mouse[0], mouse[1]);
-      gl.uniform1f(uniforms.lens, Math.min(0.5, Math.max(0.34, aspect * 0.46)));
       gl.uniform1f(uniforms.time, elapsed / 1000);
       uploadBubbles();
       gl.drawArrays(gl.TRIANGLES, 0, 3);
@@ -530,6 +542,19 @@ export default function HeroCanvas({ className = "" }) {
     window.addEventListener("pointerdown", onPointer, { passive: true });
     window.addEventListener("pointerdown", onPointerDown, { passive: true });
 
+    function syncTheme() {
+      const light = document.documentElement.classList.contains("dark") ? 0 : 1;
+      gl.uniform1f(uniforms.light, light);
+      if (!raf) draw();
+    }
+
+    const themeObserver = new MutationObserver(syncTheme);
+    themeObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+    syncTheme();
+
     resize();
     const idleX = Math.min(0.32, aspect * 0.2);
     target[0] = idleX;
@@ -544,6 +569,7 @@ export default function HeroCanvas({ className = "" }) {
       stop();
       resizeObserver.disconnect();
       observer.disconnect();
+      themeObserver.disconnect();
       window.removeEventListener("pointermove", onPointer);
       window.removeEventListener("pointerdown", onPointer);
       window.removeEventListener("pointerdown", onPointerDown);
@@ -556,7 +582,7 @@ export default function HeroCanvas({ className = "" }) {
     <canvas
       ref={canvasRef}
       aria-hidden="true"
-      className={`absolute inset-0 -z-10 h-full w-full bg-[#0b0908] ${className}`}
+      className={`absolute inset-0 -z-10 h-full w-full bg-[#c8cbf2] dark:bg-[#0b0908] ${className}`}
     />
   );
 }

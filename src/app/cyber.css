@@ -43,11 +43,11 @@ html.lenis body {
 
 .cyber-label {
   font-family: var(--cyber-mono);
-  font-size: 0.625rem;
+  font-size: 0.6875rem;
   line-height: 1.4;
-  letter-spacing: 0.32em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: #71717a;
+  color: #9d9da6;
 }
 
 .cyber-red {
@@ -130,10 +130,10 @@ html.lenis body {
   padding-bottom: 1rem;
   border-bottom: 1px solid var(--cyber-line);
   font-family: var(--cyber-mono);
-  font-size: 0.625rem;
-  letter-spacing: 0.28em;
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: #71717a;
+  color: #9d9da6;
 }
 
 .cyber-section-tag .tag-index {
@@ -145,10 +145,10 @@ html.lenis body {
   align-items: center;
   gap: 0.35rem;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 0.2rem 0.55rem;
+  padding: 0.22rem 0.6rem;
   font-family: var(--cyber-mono);
-  font-size: 0.625rem;
-  letter-spacing: 0.08em;
+  font-size: 0.6875rem;
+  letter-spacing: 0.04em;
   color: #a1a1aa;
   background: rgba(255, 255, 255, 0.015);
   transition: border-color 0.35s ease, color 0.35s ease,
