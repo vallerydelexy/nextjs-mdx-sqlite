@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import MobileNavigation from "@/components/MobileNavigation";
 import { Navigation } from "@/components/Navigation";
 import { ModeToggle } from "@/components/ModeToggle";
@@ -9,6 +10,9 @@ import Link from "next/link";
 
 export function LayoutHeader() {
   const [isAtTop, setIsAtTop] = useState(true);
+  const pathname = usePathname();
+  const overHero = isAtTop && pathname === "/";
+  const overCyber = pathname === "/" && !isAtTop;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,9 +25,13 @@ export function LayoutHeader() {
   return (
     <header
       className={`fixed top-0 z-50 w-full transition-all duration-300 ${
-        isAtTop
-          ? "border-b border-transparent bg-transparent backdrop-blur-none"
-          : "border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"
+        overHero
+          ? "border-b border-transparent bg-transparent text-stone-100 [&_a]:text-stone-100 [&_button]:text-stone-100"
+          : overCyber
+            ? "border-b border-white/10 bg-[#060608]/85 text-zinc-300 backdrop-blur supports-[backdrop-filter]:bg-[#060608]/70 [&_a]:text-zinc-300 [&_a:hover]:text-white [&_button]:text-zinc-300"
+            : isAtTop
+              ? "border-b border-transparent bg-transparent backdrop-blur-none"
+              : "border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"
       }`}
     >
       <div className="flex h-14 items-center">

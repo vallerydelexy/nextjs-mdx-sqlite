@@ -13,7 +13,7 @@ export const route = {
     },
     {
       title: "Contact",
-      href: "/contact",
+      href: "/#contact",
     },
   ],
   blogNav: [
