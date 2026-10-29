@@ -8,6 +8,16 @@ export default {
   theme: {
     extend: {
       colors: {
+        dusk: {
+          indigo: "#121018",
+          amber: "#F59E0B",
+          violet: "#4C1D95",
+        },
+        terracotta: "#D97706",
+        sun: {
+          cream: "#FDFBF7",
+          cerulean: "#38BDF8",
+        },
         whatsapp: {
           darkGreen: "#075E54",
           brightGreen: "#25D366",

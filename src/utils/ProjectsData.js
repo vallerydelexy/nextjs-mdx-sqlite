@@ -1,29 +1,29 @@
 export const WebImages = [
-  "images/atapkita-mockup-2.jpg",
-  "images/pixelninja-mockup-2.jpg",
-  "images/pixelninja-mockup-1.jpg",
-  "images/versus-mockup-1.jpg",
-  "images/dsc-web.jpg",
-  "images/polorio-web.jpg",
-  "images/cl.jpg",
-  "images/get-indonesia-app.jpg",
-  "images/get-app.jpg",
+  "/images/atapkita-mockup-2.jpg",
+  "/images/pixelninja-mockup-2.jpg",
+  "/images/pixelninja-mockup-1.jpg",
+  "/images/versus-mockup-1.jpg",
+  "/images/dsc-web.jpg",
+  "/images/polorio-web.jpg",
+  "/images/cl.jpg",
+  "/images/get-indonesia-app.jpg",
+  "/images/get-app.jpg",
 ];
 
 export const LogoImages = [
-  "images/get-indonesia.jpg",
-  "images/get-jaket.jpeg",
-  "images/alwan-zahira.png",
-  "images/polorio.png",
-  "images/iotanesia-ragnarok.png",
+  "/images/get-indonesia.jpg",
+  "/images/get-jaket.jpeg",
+  "/images/alwan-zahira.png",
+  "/images/polorio.png",
+  "/images/iotanesia-ragnarok.png",
 ];
 
 export const PrintImages = [
-  "images/dsc-ig-1.jpg",
-  "images/dsc-brosur-asus.jpg",
-  "images/brosur-alwan-zahira.jpg",
-  "images/brosur-les.jpg",
-  "images/dsc-brosur-hp.jpg",
+  "/images/dsc-ig-1.jpg",
+  "/images/dsc-brosur-asus.jpg",
+  "/images/brosur-alwan-zahira.jpg",
+  "/images/brosur-les.jpg",
+  "/images/dsc-brosur-hp.jpg",
 ];
 
 export const webProjects = [
@@ -67,7 +67,7 @@ export const webProjects = [
     year: "2022",
   },
   {
-    image: "images/pixelninja-mockup-2.jpg",
+    image: "/images/pixelninja-mockup-2.jpg",
     imageSet: ["/images/pixelninja/1.png", "/images/pixelninja/2.png"],
     logo: "/images/pixelninja-logo.png",
     title: "pixelninja",
@@ -78,7 +78,7 @@ export const webProjects = [
     year: "2022",
   },
   {
-    image: "images/intel-mockup.jpg",
+    image: "/images/intel-mockup.jpg",
     imageSet: ["/images/intel/1.jpg", "/images/intel/2.jpg"],
     logo: "/images/intel-logo.png",
     title: "Intel Partners Roundtable Invitation",
@@ -88,9 +88,9 @@ export const webProjects = [
     year: "2022",
   },
   {
-    image: "images/versus-mockup-1.jpg",
+    image: "/images/versus-mockup-1.jpg",
     imageSet: ["/images/versus/1.png"],
-    logo: "images/versus-logo.png",
+    logo: "/images/versus-logo.png",
     title: "Versus Real Estate Agent",
     domain: "versus.co.id",
     description: "Platform jual beli properti dan perdaftaran agen properti",
@@ -98,7 +98,7 @@ export const webProjects = [
     year: "2021",
   },
   {
-    image: "images/cl.jpg",
+    image: "/images/cl.jpg",
     imageSet: [
       "/images/cl/2.jpg",
       "/images/cl/3.jpg",
@@ -113,7 +113,7 @@ export const webProjects = [
     year: "2021",
   },
   {
-    image: "images/dsc-web.jpg",
+    image: "/images/dsc-web.jpg",
     imageSet: [
       "/images/dsc/3.jpg",
       "/images/dsc/1.jpg",
@@ -121,7 +121,7 @@ export const webProjects = [
       "/images/dsc/5.jpg",
       "/images/dsc/6.jpg",
     ],
-    logo: "images/dutasarana-logo.webp",
+    logo: "/images/dutasarana-logo.webp",
     title: "Duta Sarana Computer",
     domain: "dutasarana.com",
     description: "Situs penjualan peralatan komputer",
@@ -129,8 +129,8 @@ export const webProjects = [
     year: "2020",
   },
   {
-    image: "images/polorio-web.jpg",
-    logo: "images/polorio-logo.png",
+    image: "/images/polorio-web.jpg",
+    logo: "/images/polorio-logo.png",
     title: "Polorio",
     domain: "polorio.com",
     description:
@@ -139,8 +139,8 @@ export const webProjects = [
     year: "2019",
   },
   {
-    image: "images/get-app.jpg",
-    logo: "images/get-indonesia-logo.png",
+    image: "/images/get-app.jpg",
+    logo: "/images/get-indonesia-logo.png",
     title: "Get Indonesia",
     description: "Aplikasi layanan jasa transportasi secara online",
     stacks: ["illustrator", "figma"],

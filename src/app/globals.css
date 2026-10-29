@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 code {
-  font-family: Menlo;
+  font-family: Menlo, Monaco, Consolas, monospace;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -29,57 +29,53 @@ code {
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 3.9%;
-    --primary: 0 0% 9%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 0 0% 96.1%;
-    --secondary-foreground: 0 0% 9%;
-    --muted: 0 0% 96.1%;
-    --muted-foreground: 0 0% 45.1%;
-    --accent: 0 0% 96.1%;
-    --accent-foreground: 0 0% 9%;
+    --color-dusk-indigo: #121018;
+    --color-dusk-amber: #f59e0b;
+    --color-terracotta: #d97706;
+    --color-sun-cream: #fdfbf7;
+    --color-sun-cerulean: #38bdf8;
+
+    --background: 40 33% 98%;
+    --foreground: 20 14% 10%;
+    --card: 40 33% 98%;
+    --card-foreground: 20 14% 10%;
+    --popover: 40 33% 98%;
+    --popover-foreground: 20 14% 10%;
+    --primary: 38 92% 50%;
+    --primary-foreground: 20 14% 10%;
+    --secondary: 40 20% 92%;
+    --secondary-foreground: 20 14% 15%;
+    --muted: 40 20% 92%;
+    --muted-foreground: 25 10% 45%;
+    --accent: 38 92% 50%;
+    --accent-foreground: 20 14% 10%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 89.8%;
-    --input: 0 0% 89.8%;
-    --ring: 0 0% 3.9%;
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
-    --radius: 0.5rem;
+    --border: 40 15% 85%;
+    --input: 40 15% 85%;
+    --ring: 38 92% 50%;
+    --radius: 0.75rem;
   }
   .dark {
-    --background: 0 0% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 0 0% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 0 0% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
-    --secondary: 0 0% 14.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 14.9%;
-    --muted-foreground: 0 0% 63.9%;
-    --accent: 0 0% 14.9%;
-    --accent-foreground: 0 0% 98%;
+    --background: 260 20% 8%;
+    --foreground: 40 20% 96%;
+    --card: 260 20% 8%;
+    --card-foreground: 40 20% 96%;
+    --popover: 260 20% 8%;
+    --popover-foreground: 40 20% 96%;
+    --primary: 38 92% 50%;
+    --primary-foreground: 260 20% 8%;
+    --secondary: 260 15% 15%;
+    --secondary-foreground: 40 20% 96%;
+    --muted: 260 15% 15%;
+    --muted-foreground: 260 10% 65%;
+    --accent: 38 92% 50%;
+    --accent-foreground: 260 20% 8%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 14.9%;
-    --input: 0 0% 14.9%;
-    --ring: 0 0% 83.1%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
+    --border: 260 15% 18%;
+    --input: 260 15% 18%;
+    --ring: 38 92% 50%;
   }
 }
 
@@ -87,7 +83,26 @@ code {
   * {
     @apply border-border;
   }
+  html {
+    scroll-behavior: auto; /* Handled smoothly by Lenis */
+  }
   body {
-    @apply bg-background text-foreground;
+    @apply text-foreground min-h-screen antialiased;
+    background-color: transparent !important;
+  }
+}
+
+@layer utilities {
+  /* iOS 26 Liquid Glass Micro-Materials */
+  .liquid-glass-pill {
+    @apply backdrop-blur-xl backdrop-saturate-[180%] bg-white/45 dark:bg-white/[0.07] border border-white/60 dark:border-white/15 shadow-[inset_0_1px_1px_0_rgba(255,255,255,0.8),0_4px_12px_-2px_rgba(0,0,0,0.05)] dark:shadow-[inset_0_1px_1px_0_rgba(255,255,255,0.2),0_4px_12px_-2px_rgba(0,0,0,0.4)];
+  }
+
+  .liquid-glass-well {
+    @apply backdrop-blur-xl backdrop-saturate-150 bg-white/35 dark:bg-white/[0.05] border border-white/50 dark:border-white/10 shadow-[inset_0_1px_1.5px_0_rgba(255,255,255,0.65)] dark:shadow-[inset_0_1px_1.5px_0_rgba(255,255,255,0.18)];
+  }
+
+  .liquid-glass-button {
+    @apply backdrop-blur-xl backdrop-saturate-[190%] bg-white/60 hover:bg-white/80 dark:bg-white/10 dark:hover:bg-white/15 border border-white/70 dark:border-white/20 shadow-[inset_0_1px_1.5px_0_rgba(255,255,255,0.9),0_8px_20px_-4px_rgba(0,0,0,0.08)] dark:shadow-[inset_0_1px_1.5px_0_rgba(255,255,255,0.25),0_8px_20px_-4px_rgba(0,0,0,0.5)] transition-all duration-300 active:scale-95;
   }
 }

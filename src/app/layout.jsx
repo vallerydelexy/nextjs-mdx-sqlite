@@ -2,6 +2,8 @@ import { LayoutHeader } from "@/components/LayoutHeader";
 import "./globals.css";
 import "highlight.js/styles/atom-one-dark.css";
 import { ThemeProvider } from "@/components/theme-provider";
+import FluidGlassBackground from "@/components/fluid/FluidGlassBackground";
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
@@ -37,13 +39,14 @@ export default function RootLayout({ children }) {
         />
         <meta name="twitter:image" content="/images/meta.jpg" />
       </head>
-      <body>
+      <body className="relative min-h-screen">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
+          <FluidGlassBackground />
           <LayoutHeader />
           {children}
         </ThemeProvider>
