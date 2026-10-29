@@ -120,6 +120,16 @@ code {
   .marquee-pause:hover {
     animation-play-state: paused;
   }
+
+  .animate-flow-dash {
+    animation: flow-dash 1.2s linear infinite;
+  }
+}
+
+@keyframes flow-dash {
+  to {
+    stroke-dashoffset: -24;
+  }
 }
 
 @keyframes marquee-left {
