@@ -9,26 +9,24 @@ import ContactSection from "@/components/tower/ContactSection";
 export default function Home() {
   return (
     <SmoothScrollProvider>
-      <main className="relative min-h-screen px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-8 lg:gap-12">
-          {/* Left Column: Editorial Content Flow */}
-          <div className="flex-1 max-w-3xl pt-16 lg:pt-24 pb-20">
-            <TowerHero />
-            <PhilosophySection />
-            <ProjectShowcase />
-            <SkillsetSection />
-            <ContactSection />
+      <main className="relative min-h-screen px-4 sm:px-6 lg:px-8 max-w-4xl xl:max-w-5xl mx-auto">
+        {/* Living Ambient Tower Animation in Background */}
+        <TowerParallax />
 
-            <footer className="pt-12 pb-8 border-t border-stone-200/60 dark:border-stone-800/60 text-xs text-stone-500 dark:text-stone-400 flex flex-col sm:flex-row items-center justify-between gap-4">
-              <p>© {new Date().getFullYear()} Rizki Aprita. All rights reserved.</p>
-              <p className="font-mono text-[11px]">
-                Built with Next.js, WebGL2 FluidGlass & Camden Lock Aesthetics
-              </p>
-            </footer>
-          </div>
+        {/* Content Column: Centered, Generous & Readable */}
+        <div className="relative z-10 w-full pt-16 lg:pt-24 pb-20">
+          <TowerHero />
+          {/* <PhilosophySection /> */}
+          <ProjectShowcase />
+          <SkillsetSection />
+          <ContactSection />
 
-          {/* Right Column: Parallax Companion */}
-          <TowerParallax />
+          <footer className="pt-12 pb-8 border-t border-stone-200/60 dark:border-stone-800/60 text-xs text-stone-500 dark:text-stone-400 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p>© {new Date().getFullYear()} Rizki Aprita. All rights reserved.</p>
+            <p className="font-mono text-[11px]">
+
+            </p>
+          </footer>
         </div>
       </main>
     </SmoothScrollProvider>

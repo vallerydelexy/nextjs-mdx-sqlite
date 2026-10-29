@@ -57,24 +57,24 @@ code {
     --radius: 0.75rem;
   }
   .dark {
-    --background: 260 20% 8%;
-    --foreground: 40 20% 96%;
-    --card: 260 20% 8%;
-    --card-foreground: 40 20% 96%;
-    --popover: 260 20% 8%;
-    --popover-foreground: 40 20% 96%;
+    --background: 228 50% 6%;
+    --foreground: 220 20% 96%;
+    --card: 228 50% 6%;
+    --card-foreground: 220 20% 96%;
+    --popover: 228 50% 6%;
+    --popover-foreground: 220 20% 96%;
     --primary: 38 92% 50%;
-    --primary-foreground: 260 20% 8%;
-    --secondary: 260 15% 15%;
-    --secondary-foreground: 40 20% 96%;
-    --muted: 260 15% 15%;
-    --muted-foreground: 260 10% 65%;
+    --primary-foreground: 228 50% 6%;
+    --secondary: 228 25% 14%;
+    --secondary-foreground: 220 20% 96%;
+    --muted: 228 25% 14%;
+    --muted-foreground: 220 15% 70%;
     --accent: 38 92% 50%;
-    --accent-foreground: 260 20% 8%;
+    --accent-foreground: 228 50% 6%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
-    --border: 260 15% 18%;
-    --input: 260 15% 18%;
+    --border: 228 25% 18%;
+    --input: 228 25% 18%;
     --ring: 38 92% 50%;
   }
 }
@@ -104,5 +104,45 @@ code {
 
   .liquid-glass-button {
     @apply backdrop-blur-xl backdrop-saturate-[190%] bg-white/60 hover:bg-white/80 dark:bg-white/10 dark:hover:bg-white/15 border border-white/70 dark:border-white/20 shadow-[inset_0_1px_1.5px_0_rgba(255,255,255,0.9),0_8px_20px_-4px_rgba(0,0,0,0.08)] dark:shadow-[inset_0_1px_1.5px_0_rgba(255,255,255,0.25),0_8px_20px_-4px_rgba(0,0,0,0.5)] transition-all duration-300 active:scale-95;
+  }
+
+  /* Marquee / Ticker Utilities */
+  .animate-marquee-left {
+    animation: marquee-left 42s linear infinite;
+    will-change: transform;
+  }
+
+  .animate-marquee-right {
+    animation: marquee-right 42s linear infinite;
+    will-change: transform;
+  }
+
+  .marquee-pause:hover {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes marquee-left {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes marquee-right {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee-left,
+  .animate-marquee-right {
+    animation-play-state: paused;
   }
 }

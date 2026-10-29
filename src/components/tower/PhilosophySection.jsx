@@ -8,13 +8,13 @@ const PRINCIPLES = [
     icon: Compass,
     number: "01",
     title: "Ambiguity → Structure",
-    desc: "Transforming ambiguous requirements into concrete architecture, dependable data models, and intuitive user journeys.",
+    desc: "Ambiguous requirements into concrete architecture, dependable data models, and intuitive user journeys.",
   },
   {
     icon: Zap,
     number: "02",
     title: "Speed → Refinement",
-    desc: "Delivering working, verified software early, then iteratively sharpening performance, polish, and UX ergonomics.",
+    desc: "Working, verified software early, then iteratively improve performance, polish, and UX ergonomics.",
   },
   {
     icon: ShieldCheck,

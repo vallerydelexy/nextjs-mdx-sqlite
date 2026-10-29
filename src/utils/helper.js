@@ -31,8 +31,16 @@ export function classNames(...classes) {
   
   export function parseFrontmatter(fileContent) {
   const frontmatterRegex = /---\s*([\s\S]*?)\s*---/;
-  const content = fileContent.replace(frontmatterRegex, "").trim();
   const match = frontmatterRegex.exec(fileContent);
+  if (!match) {
+    const firstHeading = fileContent.match(/^#\s+(.+)$/m) || fileContent.match(/^(.+)\n={3,}/);
+    const title = firstHeading ? firstHeading[1] : "Untitled Post";
+    return {
+      metadata: { title, description: "" },
+      content: fileContent.trim(),
+    };
+  }
+  const content = fileContent.replace(frontmatterRegex, "").trim();
   const frontMatterBlock = match[1];
   const frontMatterLines = frontMatterBlock.trim().split("\n");
   const metadata = {};

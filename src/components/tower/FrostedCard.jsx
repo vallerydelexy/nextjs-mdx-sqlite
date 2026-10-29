@@ -54,9 +54,9 @@ const FrostedCard = forwardRef(function FrostedCard(
         "backdrop-blur-2xl backdrop-saturate-[190%]",
         // Multi-stop Liquid Glass body (reveals underlying WebGL atmospheric waves)
         "bg-gradient-to-b from-white/75 via-white/50 to-white/35",
-        "dark:bg-gradient-to-b dark:from-white/[0.09] dark:via-[#13101d]/65 dark:to-[#0a0712]/80",
+        "dark:bg-gradient-to-b dark:from-white/[0.08] dark:via-[#0c142e]/65 dark:to-[#050917]/80",
         // Perimeter Refractive Rim
-        "border border-white/60 dark:border-white/10",
+        "border border-white/60 dark:border-white/10 dark:hover:border-sky-400/20",
         // Dual-Bevel Specular Inset Reflection & Deep Ambient Shadow
         "shadow-[inset_0_1px_1.5px_0_rgba(255,255,255,0.85),inset_0_-1px_1px_0_rgba(0,0,0,0.05),0_20px_45px_-15px_rgba(0,0,0,0.07)]",
         "dark:shadow-[inset_0_1px_1.5px_0_rgba(255,255,255,0.25),inset_0_0_0_1px_rgba(255,255,255,0.05),inset_0_-1px_1.5px_0_rgba(0,0,0,0.5),0_25px_50px_-15px_rgba(0,0,0,0.65)]",
@@ -66,7 +66,7 @@ const FrostedCard = forwardRef(function FrostedCard(
         // Top Specular Hairline with Iridescent Sheen
         "before:pointer-events-none before:absolute before:inset-x-0 before:top-0 before:h-[1px]",
         "before:bg-gradient-to-r before:from-transparent before:via-white/95 before:to-transparent",
-        "dark:before:via-amber-300/40",
+        "dark:before:via-sky-300/35",
         // Inner Glass Subsurface Ring
         "after:pointer-events-none after:absolute after:inset-0 after:rounded-[inherit] after:ring-1 after:ring-inset after:ring-white/30 dark:after:ring-white/5",
         className

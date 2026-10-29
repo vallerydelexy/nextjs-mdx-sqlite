@@ -150,25 +150,76 @@ precision highp float;
 in highp vec2 vUv; out vec4 fragColor;
 uniform float u_time; uniform vec2 u_res; uniform float u_theme;
 float hash(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
+vec2 hash2(vec2 p){
+  return fract(sin(vec2(dot(p, vec2(127.1, 311.7)), dot(p, vec2(269.5, 183.3)))) * 43758.5453);
+}
 
 void main(){
   vec2 uv = vUv;
   float y = clamp(uv.y, 0.0, 1.0);
 
-  // Night Mode: Atmospheric Camden Lock twilight sunset
-  // deep night indigo -> dusk violet -> twilight rose -> glowing sunset peach -> amber horizon
-  vec3 cNightTop    = vec3(0.06, 0.03, 0.16); // Deep night indigo #0f0829
-  vec3 cNightDusk   = vec3(0.20, 0.08, 0.35); // Dusk violet #331459
-  vec3 cNightRose   = vec3(0.52, 0.18, 0.44); // Twilight rose #852e70
-  vec3 cNightPeach  = vec3(0.92, 0.40, 0.32); // Glowing sunset peach #eb6652
-  vec3 cNightAmber  = vec3(0.98, 0.62, 0.30); // Horizon amber glow #fa9e4d
+  // Night Mode: Makoto Shinkai Cosmic Twilight Sky
+  // Vast starry midnight sapphire sky with a delicate sunset amber horizon at the bottom
+  vec3 cNightTop    = vec3(0.016, 0.024, 0.075); // Deep space obsidian indigo #040613
+  vec3 cNightMid    = vec3(0.040, 0.068, 0.185); // Midnight starry sapphire #0a112f
+  vec3 cNightDusk   = vec3(0.180, 0.080, 0.230); // Dusky violet blush #2e143b
+  vec3 cNightPeach  = vec3(0.920, 0.420, 0.260); // Sunset coral #eb6b42
+  vec3 cNightAmber  = vec3(0.970, 0.570, 0.330); // Horizon apricot #f89155
 
-  vec3 colNight = mix(cNightAmber, cNightPeach, smoothstep(0.0, 0.30, y));
-  colNight = mix(colNight, cNightRose,  smoothstep(0.25, 0.60, y));
-  colNight = mix(colNight, cNightDusk,  smoothstep(0.52, 0.82, y));
-  colNight = mix(colNight, cNightTop,   smoothstep(0.78, 1.00, y));
+  // Delicate warm horizon strictly confined to bottom ~10%
+  vec3 colNight = mix(cNightAmber, cNightPeach, smoothstep(0.0, 0.04, y));
+  colNight = mix(colNight, cNightDusk,  smoothstep(0.03, 0.10, y));
+  colNight = mix(colNight, cNightMid,   smoothstep(0.08, 0.28, y));
+  colNight = mix(colNight, cNightTop,   smoothstep(0.25, 0.85, y));
 
-  // Day Mode: Bohemian London Camden morning sky
+  // Organic, Non-Uniform Twinkling Starfield in Night Sky
+  if (uv.y > 0.14) {
+    // Layer 1: Fine, organic stardust with randomized 2D cell jitter & independent twinkle
+    vec2 grid1 = uv * vec2(120.0, 70.0);
+    vec2 id1 = floor(grid1);
+    vec2 f1 = fract(grid1);
+    vec2 pos1 = hash2(id1); // Random offset breaks grid alignment completely
+    float dist1 = length(f1 - pos1);
+    float starSeed1 = hash(id1 + vec2(1.7, 4.3));
+    // Each star gets an independent frequency, phase, and brightness
+    float starRate1 = 1.2 + 3.8 * hash(id1 + vec2(9.1, 2.7));
+    float starPhase1 = hash(id1 + vec2(5.3, 8.9)) * 6.28318;
+    float starTwinkle1 = 0.25 + 0.75 * pow(0.5 + 0.5 * sin(u_time * starRate1 + starPhase1), 2.0);
+    float starMask1 = step(0.68, starSeed1); // ~32% of cells have a star
+    float starLight1 = exp(-dist1 * dist1 * 260.0) * starTwinkle1 * starMask1;
+
+    // Layer 2: Sparse, brighter Shinkai landmark stars with soft breathing glow
+    vec2 grid2 = (uv + vec2(0.37, 0.51)) * vec2(45.0, 26.0);
+    vec2 id2 = floor(grid2);
+    vec2 f2 = fract(grid2);
+    vec2 pos2 = hash2(id2 + vec2(7.3, 3.1));
+    float dist2 = length(f2 - pos2);
+    float starSeed2 = hash(id2 + vec2(11.3, 17.9));
+    float starRate2 = 0.8 + 2.2 * hash(id2 + vec2(13.5, 7.1));
+    float starPhase2 = hash(id2 + vec2(4.1, 15.7)) * 6.28318;
+    float starTwinkle2 = 0.35 + 0.65 * (0.5 + 0.5 * sin(u_time * starRate2 + starPhase2));
+    float starMask2 = step(0.86, starSeed2); // ~14% of cells
+    float core2 = exp(-dist2 * dist2 * 320.0);
+    float glow2 = exp(-dist2 * 18.0) * 0.35;
+    float starLight2 = (core2 + glow2) * starTwinkle2 * starMask2;
+
+    float nightFade = smoothstep(0.14, 0.35, uv.y);
+    vec3 starTint1 = mix(vec3(0.85, 0.92, 1.0), vec3(0.95, 0.88, 1.0), starSeed1);
+    vec3 starTint2 = mix(vec3(0.70, 0.90, 1.0), vec3(1.0, 0.92, 0.85), starSeed2);
+    colNight += (starTint1 * starLight1 * 0.45 + starTint2 * starLight2 * 0.65) * nightFade;
+  }
+
+  // Celestial Comet Arc (Makoto Shinkai streak sweeping across upper sky)
+  float cometCurve = 0.48 + 0.60 * uv.x - 0.25 * uv.x * uv.x;
+  float distToComet = abs(uv.y - cometCurve);
+  float cometIntensity = exp(-distToComet * distToComet * 2800.0) * smoothstep(0.18, 0.88, uv.x);
+  float cometGlow = exp(-distToComet * 14.0) * smoothstep(0.12, 0.92, uv.x) * 0.07;
+  vec3 cometCore = vec3(0.35, 0.88, 1.0);  // Electric cyan core
+  vec3 cometDust = vec3(0.85, 0.35, 0.75); // Magenta/violet stardust
+  vec3 cometColor = mix(cometDust, cometCore, clamp(cometIntensity * 2.0, 0.0, 1.0));
+  colNight += (cometColor * cometIntensity * 0.75 + cometDust * cometGlow) * smoothstep(0.20, 0.35, y);
+
+  // Day Mode: Bohemian London Camden morning sky (100% untouched)
   // fresh azure -> cerulean -> soft mist -> warm sunlit cream
   vec3 cDayTop   = vec3(0.24, 0.54, 0.86); // Fresh azure #3d8adc
   vec3 cDayMid   = vec3(0.52, 0.76, 0.95); // Cerulean sky #85c2f2
@@ -181,33 +232,27 @@ void main(){
 
   vec3 col = mix(colDay, colNight, u_theme);
 
-  // Floating bohemian ambient lantern / window light orbs (warm golden bokeh floating gently)
-  for (int i = 0; i < 5; i++) {
+  // Floating ambient bokeh: in Day mode soft azure/warm bubbles; in Night mode subtle warm lanterns near base
+  for (int i = 0; i < 4; i++) {
     float f = float(i) * 1.379;
     vec2 c = vec2(0.15 + 0.70 * hash(vec2(float(i), 1.3)),
-                  (0.20 + 0.65 * hash(vec2(float(i), 7.7))) * 0.9 + 0.05);
-    c.x += 0.08 * sin(u_time * (0.15 + 0.08 * f) + f * 5.0);
-    c.y += 0.06 * cos(u_time * (0.12 + 0.06 * f) + f * 3.0);
-    float r = 0.12 + 0.08 * hash(vec2(f, 9.1));
+                  (0.15 + 0.40 * hash(vec2(float(i), 7.7))) * 0.6 + 0.05);
+    c.x += 0.06 * sin(u_time * (0.12 + 0.06 * f) + f * 5.0);
+    c.y += 0.04 * cos(u_time * (0.10 + 0.05 * f) + f * 3.0);
+    float r = 0.10 + 0.06 * hash(vec2(f, 9.1));
     float k = hash(vec2(f, 4.3));
 
     vec3 tintDay = mix(vec3(0.35, 0.70, 0.95), vec3(0.98, 0.75, 0.45), smoothstep(0.3, 0.8, k));
-    vec3 tintNight = mix(vec3(0.98, 0.65, 0.28), vec3(0.99, 0.45, 0.55), smoothstep(0.3, 0.8, k));
+    vec3 tintNight = mix(vec3(0.98, 0.60, 0.25), vec3(0.40, 0.75, 1.0), smoothstep(0.4, 0.9, k));
     vec3 tint = mix(tintDay, tintNight, u_theme);
 
     float d = length(uv - c) / r;
-    col += tint * (0.28 * exp(-d * d * 4.5));
-    col += mix(vec3(1.0, 0.98, 0.92), vec3(1.0, 0.90, 0.70), u_theme) * exp(-d * d * 38.0) * 0.14;
+    col += tint * (0.20 * exp(-d * d * 5.0));
   }
 
-  // Gentle dusk cloud whisper
-  float g = 0.025 + 0.015 * sin(uv.y * 18.0 + u_time * 0.35);
-  vec3 gTint = mix(vec3(0.95, 0.80, 0.65), vec3(0.98, 0.52, 0.38), u_theme);
-  col += g * gTint * 0.5 * (0.5 + 0.5 * sin(uv.x * 6.0 + u_time * 0.4));
-
-  // Horizon warm sunset ray
-  float beam = exp(-pow((uv.x * 1.2 - uv.y + 0.1 + 0.06 * sin(u_time * 0.25)) * 6.0, 2.0));
-  col += mix(vec3(0.85, 0.92, 1.0), vec3(0.99, 0.68, 0.42), u_theme) * beam * 0.12;
+  // Horizon warm dusk ray (active mostly near the bottom)
+  float beam = exp(-pow((uv.x * 1.2 - uv.y + 0.05 + 0.05 * sin(u_time * 0.25)) * 8.0, 2.0));
+  col += mix(vec3(0.85, 0.92, 1.0) * 0.08, vec3(0.98, 0.55, 0.32) * 0.12 * smoothstep(0.25, 0.0, y), u_theme) * beam;
 
   col = pow(col, vec3(0.96));
   fragColor = vec4(col, 1.);
@@ -263,13 +308,13 @@ void main(){
   vec3 refl = reflect(view, nrm);
   float f = pow(1.0 - clamp(dot(nrm, -view), 0., 1.), 5.0);
   vec3 skycDay = mix(vec3(0.65, 0.82, 0.98), vec3(0.98, 0.85, 0.70), pow(max(refl.y * 0.5 + 0.5, 0.), 2.5));
-  vec3 skycNight = mix(vec3(0.15, 0.08, 0.28), vec3(0.98, 0.58, 0.36), pow(max(refl.y * 0.5 + 0.5, 0.), 2.5));
+  vec3 skycNight = mix(vec3(0.03, 0.05, 0.16), vec3(0.20, 0.65, 0.95), pow(max(refl.y * 0.5 + 0.5, 0.), 2.5));
   vec3 skyc = mix(skycDay, skycNight, u_theme);
-  vec3 reflCol = skyc * (0.05 + 0.6 * f * disp);
+  vec3 reflCol = skyc * (0.04 + 0.55 * f * disp);
 
   vec3 edg = texture(u_normDelta, fragUv).xyz;
   vec3 rimDay = vec3(0.40, 0.75, 0.95) * clamp(dot(edg, vec3(0.333)) * 6.0, 0., 1.) * 0.2;
-  vec3 rimNight = vec3(0.98, 0.68, 0.35) * clamp(dot(edg, vec3(0.333)) * 8.0, 0., 1.) * 0.30;
+  vec3 rimNight = mix(vec3(0.95, 0.58, 0.28), vec3(0.30, 0.72, 0.95), smoothstep(0.05, 0.25, fragUv.y)) * clamp(dot(edg, vec3(0.333)) * 8.0, 0., 1.) * 0.22;
   vec3 rim = mix(rimDay, rimNight, u_theme);
 
   vec3 L = normalize(vec3(-0.5, 0.6, 0.7));

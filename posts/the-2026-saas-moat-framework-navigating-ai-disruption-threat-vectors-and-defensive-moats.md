@@ -1,3 +1,8 @@
+---
+title:  The 2026 SaaS Moat Framework: Navigating AI Disruption, Threat Vectors, and Defensive Moats
+description: An exhaustive synthesis on the structural shifts in the SaaS landscape, threat vectors, and durable business moats.
+cover: images/meta.jpg
+---
 Study Guide: The 2026 SaaS Moat Framework – Navigating AI Disruption, Threat Vectors, and Defensive Moats
 
 Executive Summary
