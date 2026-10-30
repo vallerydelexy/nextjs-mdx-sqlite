@@ -4,8 +4,6 @@ export const WebImages = [
   "/images/pixelninja-mockup-1.jpg",
   "/images/versus-mockup-1.jpg",
   "/images/dsc-web.jpg",
-  "/images/polorio-web.jpg",
-  "/images/cl.jpg",
   "/images/get-indonesia-app.jpg",
   "/images/get-app.jpg",
 ];
@@ -14,7 +12,6 @@ export const LogoImages = [
   "/images/get-indonesia.jpg",
   "/images/get-jaket.jpeg",
   "/images/alwan-zahira.png",
-  "/images/polorio.png",
   "/images/iotanesia-ragnarok.png",
 ];
 
@@ -98,21 +95,6 @@ export const webProjects = [
     year: "2021",
   },
   {
-    image: "/images/cl.jpg",
-    imageSet: [
-      "/images/cl/2.jpg",
-      "/images/cl/3.jpg",
-      "/images/cl/4.jpg",
-      "/images/cl/5.jpg",
-    ],
-    title: "Central Language",
-    domain: "centrallanguage.co.id",
-    description:
-      "Situs institusi untuk pemesanan kelas di kampung inggris, pare",
-    stacks: ["wordpress", "mysql", "bootstrap"],
-    year: "2021",
-  },
-  {
     image: "/images/dsc-web.jpg",
     imageSet: [
       "/images/dsc/3.jpg",
@@ -127,16 +109,6 @@ export const webProjects = [
     description: "Situs penjualan peralatan komputer",
     stacks: ["wordpress", "mysql", "bootstrap", "SEO"],
     year: "2020",
-  },
-  {
-    image: "/images/polorio-web.jpg",
-    logo: "/images/polorio-logo.png",
-    title: "Polorio",
-    domain: "polorio.com",
-    description:
-      "Situs penjualan aksesoris rumah tangga dan produk import china",
-    stacks: ["wordpress", "mysql", "bootstrap", "SEO"],
-    year: "2019",
   },
   {
     image: "/images/get-app.jpg",
