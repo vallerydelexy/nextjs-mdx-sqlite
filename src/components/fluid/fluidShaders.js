@@ -154,9 +154,28 @@ vec2 hash2(vec2 p){
   return fract(sin(vec2(dot(p, vec2(127.1, 311.7)), dot(p, vec2(269.5, 183.3)))) * 43758.5453);
 }
 
+float vnoise(vec2 p){
+  vec2 i = floor(p);
+  vec2 f = fract(p);
+  vec2 u = f * f * (3.0 - 2.0 * f);
+  return mix(mix(hash(i + vec2(0.0, 0.0)), hash(i + vec2(1.0, 0.0)), u.x),
+             mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), u.x), u.y);
+}
+
+float cloudFbm(vec2 p){
+  float v = 0.0;
+  v += 0.52 * vnoise(p);
+  p = p * 2.04 + vec2(1.6, 3.2);
+  v += 0.30 * vnoise(p);
+  p = p * 2.08 + vec2(2.4, 1.8);
+  v += 0.18 * vnoise(p);
+  return v;
+}
+
 void main(){
   vec2 uv = vUv;
   float y = clamp(uv.y, 0.0, 1.0);
+  float aspect = u_res.x / max(u_res.y, 1.0);
 
   // Night Mode: Makoto Shinkai Cosmic Twilight Sky
   // Vast starry midnight sapphire sky with a delicate sunset amber horizon at the bottom
@@ -219,16 +238,64 @@ void main(){
   vec3 cometColor = mix(cometDust, cometCore, clamp(cometIntensity * 2.0, 0.0, 1.0));
   colNight += (cometColor * cometIntensity * 0.75 + cometDust * cometGlow) * smoothstep(0.20, 0.35, y);
 
-  // Day Mode: Bohemian London Camden morning sky (100% untouched)
+  // Day Mode: Studio Ghibli Summer Sky
   // fresh azure -> cerulean -> soft mist -> warm sunlit cream
-  vec3 cDayTop   = vec3(0.24, 0.54, 0.86); // Fresh azure #3d8adc
-  vec3 cDayMid   = vec3(0.52, 0.76, 0.95); // Cerulean sky #85c2f2
-  vec3 cDayLow   = vec3(0.80, 0.91, 0.98); // Soft morning mist #cce8fa
+  vec3 cDayTop   = vec3(0.22, 0.52, 0.88); // Fresh azure #3885e0
+  vec3 cDayMid   = vec3(0.50, 0.75, 0.95); // Cerulean sky #80bff2
+  vec3 cDayLow   = vec3(0.78, 0.90, 0.98); // Soft morning mist #c7e6fa
   vec3 cDayWarm  = vec3(0.98, 0.96, 0.92); // Warm sunlit cream #faf5eb
 
   vec3 colDay = mix(cDayWarm, cDayLow, smoothstep(0.0, 0.35, y));
   colDay = mix(colDay, cDayMid, smoothstep(0.30, 0.70, y));
   colDay = mix(colDay, cDayTop, smoothstep(0.65, 1.00, y));
+
+  // 1. Radiant Sun Disc & Shimmering Anime Sunburst
+  vec2 sunPos = vec2(0.78, 0.82);
+  vec2 sunDelta = (uv - sunPos) * vec2(aspect, 1.0);
+  float sunDist = length(sunDelta);
+
+  float sunCore = exp(-sunDist * sunDist * 1600.0);
+  float sunInner = exp(-sunDist * sunDist * 80.0) * 0.75;
+  float sunGlow = exp(-sunDist * 3.2) * 0.45;
+  float sunRing = exp(-pow(abs(sunDist - 0.28) * 14.0, 2.0)) * 0.09;
+
+  float sunAngle = atan(sunDelta.y, sunDelta.x);
+  float rays = max(0.0, sin(sunAngle * 9.0 + u_time * 0.12) * sin(sunAngle * 5.0 - u_time * 0.08));
+  rays = pow(rays, 3.0) * exp(-sunDist * 2.2) * 0.22;
+
+  vec3 sunColor = vec3(1.0, 0.98, 0.92) * sunCore
+                + vec3(1.0, 0.92, 0.76) * sunInner
+                + vec3(1.0, 0.84, 0.65) * (sunGlow + rays)
+                + vec3(1.0, 0.78, 0.70) * sunRing;
+
+  // 2. Studio Ghibli Summer Cumulus Clouds
+  float cloudSpeed = u_time * 0.012;
+  vec2 cUv1 = (uv * vec2(aspect * 1.8, 1.6)) + vec2(-cloudSpeed, 0.0);
+  cUv1.y += 0.05 * sin(cUv1.x * 2.5 + u_time * 0.04);
+  float cNoise1 = cloudFbm(cUv1);
+
+  float cloudMask1 = smoothstep(0.24, 0.50, uv.y) * smoothstep(0.92, 0.65, uv.y);
+  float cloudDensity1 = smoothstep(0.48, 0.72, cNoise1) * cloudMask1;
+
+  vec2 cUv2 = (uv * vec2(aspect * 3.2, 2.4)) + vec2(-cloudSpeed * 1.4 + 4.3, 1.2);
+  float cNoise2 = cloudFbm(cUv2);
+  float cloudMask2 = smoothstep(0.55, 0.75, uv.y) * smoothstep(0.98, 0.82, uv.y);
+  float cloudDensity2 = smoothstep(0.54, 0.78, cNoise2) * cloudMask2 * 0.45;
+
+  vec3 colCloudSunlit = vec3(1.0, 0.99, 0.96);
+  vec3 colCloudMid    = vec3(0.95, 0.96, 0.98);
+  vec3 colCloudShade  = vec3(0.72, 0.82, 0.94);
+
+  float sunShadeFactor = clamp(dot(normalize(vec2(0.6, 0.8)), vec2(-1.0, 1.0) * (cNoise1 - 0.5)), 0.0, 1.0);
+  vec3 cloudColor1 = mix(colCloudShade, colCloudMid, smoothstep(0.48, 0.62, cNoise1));
+  cloudColor1 = mix(cloudColor1, colCloudSunlit, sunShadeFactor * 0.85);
+
+  float cloudRim = smoothstep(0.68, 0.72, cNoise1) * (1.0 - smoothstep(0.72, 0.76, cNoise1));
+  cloudColor1 += vec3(1.0, 0.94, 0.82) * cloudRim * 0.35 * exp(-sunDist * 1.5);
+
+  colDay = mix(colDay, cloudColor1, cloudDensity1 * 0.88);
+  colDay = mix(colDay, colCloudSunlit, cloudDensity2 * 0.65);
+  colDay += sunColor;
 
   vec3 col = mix(colDay, colNight, u_theme);
 
@@ -256,7 +323,9 @@ void main(){
 
   col = pow(col, vec3(0.96));
   fragColor = vec4(col, 1.);
-}`;
+}
+
+`;
 
 export const FS_REFRACT = `#version 300 es
 precision highp float; precision highp sampler2D;
@@ -326,5 +395,5 @@ void main(){
   col += rim;
   col += mix(vec3(1., 0.98, 0.95), vec3(1., 0.95, 0.85), u_theme) * spec;
   fragColor = vec4(col, 1.);
-}`;
-
+}
+`;
