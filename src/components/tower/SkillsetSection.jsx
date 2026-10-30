@@ -340,7 +340,7 @@ export default function SkillsetSection() {
           {viewMode === "graph" && (
             <svg
               className="absolute inset-0 pointer-events-none w-full h-full z-10"
-              style={{ overflow: "visible" }}
+              style={{ overflow: "hidden" }}
             >
               <defs>
                 <linearGradient id="glow-grad" x1="0%" y1="0%" x2="100%" y2="0%">

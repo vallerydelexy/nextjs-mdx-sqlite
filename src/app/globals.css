@@ -85,10 +85,15 @@ code {
   }
   html {
     scroll-behavior: auto; /* Handled smoothly by Lenis */
+    overflow-x: hidden;
+    max-width: 100vw;
   }
   body {
     @apply text-foreground min-h-screen antialiased;
     background-color: transparent !important;
+    overflow-x: hidden;
+    max-width: 100%;
+    position: relative;
   }
 }
 
