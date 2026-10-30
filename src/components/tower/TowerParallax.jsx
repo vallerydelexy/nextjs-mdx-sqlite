@@ -39,14 +39,14 @@ export default function TowerParallax() {
     <div
       ref={containerRef}
       aria-hidden="true"
-      className="pointer-events-none fixed right-0 bottom-0 -z-[5] w-full max-w-[500px] md:max-w-[720px] lg:max-w-[860px] xl:max-w-[980px] select-none flex flex-col justify-end transition-opacity duration-700"
+      className="pointer-events-none fixed right-0 bottom-0 -z-[5] w-full max-w-[460px] sm:max-w-[540px] md:max-w-[720px] lg:max-w-[860px] xl:max-w-[980px] select-none flex flex-col justify-end transition-opacity duration-700"
     >
       {/* Living Ambient 3D Diorama (Three.js) in Background */}
       <div
         ref={midgroundRef}
-        className="relative flex w-full items-end justify-end pr-0 md:pr-4 lg:pr-6 pb-0 md:pb-2 pointer-events-none select-none"
+        className="relative flex w-full items-end justify-center md:justify-end pr-0 md:pr-4 lg:pr-6 pb-0 md:pb-2 pointer-events-none select-none"
       >
-        <div className="relative w-full aspect-[16/10] pointer-events-none select-none drop-shadow-2xl">
+        <div className="relative w-full aspect-[4/5] sm:aspect-square md:aspect-[16/11] lg:aspect-[16/10] pointer-events-none select-none drop-shadow-2xl">
           <DioramaCanvas />
         </div>
       </div>

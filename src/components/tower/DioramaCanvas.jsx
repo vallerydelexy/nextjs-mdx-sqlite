@@ -497,25 +497,45 @@ export default function DioramaCanvas({ className = "" }) {
     }
 
     function smokeSprite(v) {
-      const s = 192, cv = canvas(s, s, 2), g = cv.g;
+      const s = 256, cv = canvas(s, s, 2), g = cv.g;
       seed = 500 + v * 97;
-      const puffs = [];
-      for (let i = 0; i < 4; i++) {
-        puffs.push({ x: s / 2 + rr(-20, 20), y: s / 2 + rr(-18, 18), r: rr(40, 58) });
-      }
-      for (let p = 0; p < puffs.length; p++) {
-        const pf = puffs[p];
-        const grd = g.createRadialGradient(pf.x - 8, pf.y - 10, pf.r * 0.2, pf.x, pf.y, pf.r);
-        grd.addColorStop(0, "rgba(255,255,255,1)");
-        grd.addColorStop(0.65, "rgba(255,248,238,1)");
-        grd.addColorStop(0.88, "rgba(230,218,204,1)");
-        grd.addColorStop(1, "rgba(205,192,176,0.7)");
+      // Multi-lobed soft Ghibli cloud puff
+      const lobes = [
+        { x: s / 2 - 14, y: s / 2 + 10, r: 48 },
+        { x: s / 2 + 16, y: s / 2 + 8, r: 46 },
+        { x: s / 2 - 8, y: s / 2 - 16, r: 52 },
+        { x: s / 2 + 12, y: s / 2 - 10, r: 44 },
+        { x: s / 2, y: s / 2, r: 58 }
+      ];
+
+      // Draw soft cloud base lobes with feathered edges (smooth falloff to 0 opacity)
+      for (let p = 0; p < lobes.length; p++) {
+        const lb = lobes[p];
+        const grd = g.createRadialGradient(lb.x - 8, lb.y - 10, lb.r * 0.15, lb.x, lb.y, lb.r);
+        grd.addColorStop(0, "rgba(255, 255, 255, 0.95)");
+        grd.addColorStop(0.38, "rgba(252, 248, 240, 0.85)");
+        grd.addColorStop(0.7, "rgba(230, 222, 210, 0.45)");
+        grd.addColorStop(0.9, "rgba(215, 205, 195, 0.12)");
+        grd.addColorStop(1, "rgba(200, 190, 180, 0)"); // Smooth zero-edge fade (no hard cuts!)
         g.fillStyle = grd;
-        g.beginPath(); g.arc(pf.x, pf.y, pf.r, 0, 6.2832); g.fill();
-        g.strokeStyle = "rgba(160,146,132,0.32)";
-        g.lineWidth = 3;
-        g.stroke();
+        g.beginPath();
+        g.arc(lb.x, lb.y, lb.r, 0, 6.2832);
+        g.fill();
       }
+
+      // Soft painterly cloud bottom shading (subtle warm Ghibli shadow)
+      for (let q = 0; q < 3; q++) {
+        const lb = lobes[q];
+        const shGrd = g.createRadialGradient(lb.x + 4, lb.y + 14, 2, lb.x + 4, lb.y + 14, lb.r * 0.65);
+        shGrd.addColorStop(0, "rgba(180, 168, 156, 0.22)");
+        shGrd.addColorStop(0.6, "rgba(180, 168, 156, 0.08)");
+        shGrd.addColorStop(1, "rgba(180, 168, 156, 0)");
+        g.fillStyle = shGrd;
+        g.beginPath();
+        g.arc(lb.x + 4, lb.y + 14, lb.r * 0.65, 0, 6.2832);
+        g.fill();
+      }
+
       return cv.c;
     }
 
@@ -614,18 +634,39 @@ export default function DioramaCanvas({ className = "" }) {
     }
     updateCameraPos();
 
-    const VIEW_H = 530;
-
     function fit() {
       if (!container || !renderer || !camera) return;
       const vw = container.clientWidth || window.innerWidth;
-      const vh = container.clientHeight || (vw * 0.625);
+      const vh = container.clientHeight || (vw * 0.75);
       const aspect = vw / vh;
-      let h = VIEW_H, w = h * aspect;
-      if (w < 840) { w = 840; h = w / aspect; }
-      camera.left = -w / 2; camera.right = w / 2;
-      camera.top = h / 2; camera.bottom = -h / 2;
+
+      const isMobile = vw < 768 || aspect < 1.0;
+      if (isMobile) {
+        // Vertical mobile framing: center on tower and frame full height cleanly without cropping
+        TARGET.set(0, 195, 0);
+        let h = 485;
+        let w = h * aspect;
+        if (w < 380) {
+          w = 380;
+          h = w / aspect;
+        }
+        camera.left = -w / 2; camera.right = w / 2;
+        camera.top = h / 2; camera.bottom = -h / 2;
+      } else {
+        // Desktop landscape 3/4 framing
+        TARGET.set(0, 170, 0);
+        let h = 510;
+        let w = h * aspect;
+        if (w < 680) {
+          w = 680;
+          h = w / aspect;
+        }
+        camera.left = -w / 2; camera.right = w / 2;
+        camera.top = h / 2; camera.bottom = -h / 2;
+      }
+
       camera.updateProjectionMatrix();
+      updateCameraPos();
       renderer.setSize(vw, vh, false);
     }
 
@@ -1320,16 +1361,17 @@ export default function DioramaCanvas({ className = "" }) {
       // Drift smoke
       for (let s = 0; s < smoke.length; s++) {
         const p = smoke[s];
-        const age = ((t * 0.11 + p.offset) % 1);
-        const curl = Math.sin(age * 4.6 + p.seed) * (8 + age * 28);
+        const age = ((t * 0.10 + p.offset) % 1);
+        const curl = Math.sin(age * 4.2 + p.seed) * (10 + age * 30);
         p.mesh.position.set(
-          CHIMNEY_X - 10 - age * 85 + curl,
-          310 + age * 180,
+          CHIMNEY_X - 10 - age * 80 + curl,
+          305 + age * 180,
           CHIMNEY_Z - 4
         );
-        const sc = 42 + 90 * age;
+        const sc = 52 + 95 * age;
         p.mesh.scale.set(sc, sc, 1);
-        p.mesh.material.opacity = 0.85 * Math.min(1, age * 5) * Math.pow(1 - age, 1.4);
+        // Soft sine envelope: zero at birth, peak at age 0.45, fading smoothly to zero at dispersal
+        p.mesh.material.opacity = 0.82 * Math.sin(age * Math.PI) * (1 - age * 0.25);
         p.mesh.quaternion.copy(camera.quaternion);
         p.mesh.rotateZ(p.seed + age * p.spin);
       }
