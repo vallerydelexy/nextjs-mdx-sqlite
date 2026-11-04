@@ -3,6 +3,7 @@ import TowerHero from "@/components/tower/TowerHero";
 import TowerParallax from "@/components/tower/TowerParallax";
 import PhilosophySection from "@/components/tower/PhilosophySection";
 import ProjectShowcase from "@/components/tower/ProjectShowcase";
+import OriginTimeline from "@/components/tower/OriginTimeline";
 import SkillsetSection from "@/components/tower/SkillsetSection";
 import ContactSection from "@/components/tower/ContactSection";
 
@@ -18,14 +19,13 @@ export default function Home() {
           <TowerHero />
           {/* <PhilosophySection /> */}
           <ProjectShowcase />
+          <OriginTimeline />
           <SkillsetSection />
           <ContactSection />
 
           <footer className="pt-12 pb-8 border-t border-stone-200/60 dark:border-stone-800/60 text-xs text-stone-500 dark:text-stone-400 flex flex-col sm:flex-row items-center justify-between gap-4">
             <p>© {new Date().getFullYear()} Rizki Aprita. All rights reserved.</p>
-            <p className="font-mono text-[11px]">
-
-            </p>
+            <p className="font-mono text-[11px]"></p>
           </footer>
         </div>
       </main>
