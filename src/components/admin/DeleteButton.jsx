@@ -1,5 +1,6 @@
 "use client";
 
+import { Trash2 } from "lucide-react";
 import { deletePost } from "@/app/admin/actions";
 
 export default function DeleteButton({ slug }) {
@@ -13,10 +14,8 @@ export default function DeleteButton({ slug }) {
       }}
     >
       <input type="hidden" name="slug" value={slug} />
-      <button
-        type="submit"
-        className="text-sm text-red-500 transition-opacity hover:opacity-80"
-      >
+      <button type="submit" className="admin-danger-button px-3 text-xs">
+        <Trash2 className="size-3.5" aria-hidden="true" />
         Delete
       </button>
     </form>
