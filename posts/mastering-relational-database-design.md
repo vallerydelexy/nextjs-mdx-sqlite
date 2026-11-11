@@ -2,6 +2,7 @@
 title: "Mastering Relational Database Design: A Comprehensive Guide"
 description:
 cover: images/database-schema-design.png
+date: 2025-01-06
 ---
 
 # Introduction

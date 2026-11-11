@@ -1,5 +1,4 @@
 import rehypeHighlight from "rehype-highlight";
-import "highlight.js/styles/github-dark.css";
 import { visit } from "unist-util-visit";
 import typescript from "highlight.js/lib/languages/typescript";
 import javascript from "highlight.js/lib/languages/javascript";

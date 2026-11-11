@@ -1,7 +1,7 @@
-// src/app/[slug]/page.jsx
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
-import { getPostBySlug, getPostsLocally } from "@/utils/helper";
+import { getAllSlugs, getPost } from "@/lib/posts";
+import { siteConfig } from "@/config/site";
 import Grain from "@/components/Grain";
 import { mdxOptions } from "@/config/mdxOptions";
 import TableOfContents from "@/components/TableOfContent";
@@ -9,16 +9,39 @@ import { mdxComponents } from "@/components/MdxComponents";
 import CatLottie from "@/components/CatLottie";
 import CoinLottie from "@/components/CoinLottie";
 
+export const dynamicParams = false;
+
+export async function generateStaticParams() {
+  return getAllSlugs();
+}
+
+export async function generateMetadata({ params }) {
+  const { slug } = await params;
+  const post = getPost(slug);
+  if (!post) return {};
+
+  return {
+    title: post.title,
+    description: post.description,
+    openGraph: {
+      title: post.title,
+      description: post.description,
+      images: post.cover ? [new URL(post.cover, siteConfig.url).toString()] : [],
+    },
+  };
+}
+
 export default async function Blog({ params }) {
   const slug = (await params).slug;
-  const post = await getPostBySlug(slug);
+  const post = getPost(slug);
   if (!post) {
     notFound();
   }
+
   const date =
-    post.createdAt === post.updatedAt
-      ? new Date(post.createdAt).toDateString()
-      : (`updated ${new Date(post.updatedAt).toDateString()}` ?? "");
+    post.updated && post.updated !== post.date
+      ? `updated ${new Date(post.updated).toDateString()}`
+      : new Date(post.date).toDateString();
 
   const isContactPage = slug === "contact";
 
@@ -84,12 +107,4 @@ export default async function Blog({ params }) {
       )}
     </article>
   );
-}
-
-// Generate static pages for all posts, including the contact page
-export async function generateStaticParams() {
-  const posts = getPostsLocally();
-  return posts.map((post) => ({
-    slug: post.slug,
-  }));
 }

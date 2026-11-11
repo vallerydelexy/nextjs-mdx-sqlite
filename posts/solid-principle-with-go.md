@@ -2,6 +2,7 @@
 title: "SOLID Principles with Go"
 description: "The SOLID principles are a set of design guidelines that help developers write more maintainable, scalable, and testable code."
 cover: images/solid.webp
+date: 2025-01-10
 ---
 
 SOLID stands for: Single Responsibility, Open-Closed, Liskov Substitution, Interface Segregation, and Dependency Inversion. Each principle plays a vital role in fostering maintainability, scalability, and testability in your programs.

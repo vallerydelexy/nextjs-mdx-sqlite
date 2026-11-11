@@ -2,6 +2,7 @@
 title: "How to build github action runner: A Dockerfile Guide"
 description: "A guide on why and how to build a custom GitHub Actions Runner that uses GPU."
 cover: images/github-actions.webp
+date: 2025-01-10
 ---
 GitHub Actions is a powerful tool for automating your development workflow. While GitHub provides hosted runners, sometimes you need a custom environment. In this post, we'll walk through creating a Dockerfile to build your own GitHub Actions runner.
 

@@ -11,8 +11,4 @@ overrides:
   baseline-browser-mapping: 2.11.33
 
 onlyBuiltDependencies:
-  - '@prisma/client'
-  - '@prisma/engines'
-  - better-sqlite3
-  - prisma
   - sharp

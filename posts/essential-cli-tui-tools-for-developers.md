@@ -2,6 +2,7 @@
 title: "Essential CLI/TUI Tools for Developers"
 description: "An opinionated list of CLI/TUI applications for developer productivity."
 cover: images/kubectx.gif
+date: 2025-01-09
 ---
 
 As developers, we spend a lot of time in our terminal. Or maybe we could spend even more, because there are so many great CLI/TUI tools that can boost the developer productivity, or just be fun to use.
